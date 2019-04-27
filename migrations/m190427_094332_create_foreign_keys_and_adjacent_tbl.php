@@ -57,7 +57,8 @@ class m190427_094332_create_foreign_keys_and_adjacent_tbl extends Migration
             'count' => $this->integer()->unsigned()->notNull()->defaultValue(1),
             'price' => $this->double(2)->unsigned()->notNull(),
             'product_id' => $this->integer()->notNull(),
-            'user_id' => $this->integer()->notNull()
+            'user_id' => $this->integer()->notNull(),
+            'order_date' => $this->dateTime()
         ]);
         $this->addForeignKey(
             'product_order_fk',
