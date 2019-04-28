@@ -11,15 +11,11 @@ $this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -28,11 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'group_id',
+            [
+                'attribute' => 'group_id',
+                'value' => 'group.name',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-
 </div>

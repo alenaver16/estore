@@ -46,7 +46,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'group_id' => 'Group ID',
+            'group_id' => 'Group',
         ];
     }
 
