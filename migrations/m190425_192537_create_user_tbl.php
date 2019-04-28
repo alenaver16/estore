@@ -19,7 +19,7 @@ class m190425_192537_create_user_tbl extends Migration
             'last_name' => $this->string(40),
             'email' => $this->string(40)->notNull()->unique(),
             'phone' => $this->string(20),
-            'password' => $this->string(40)->notNull(),
+            'password' => $this->string(100)->notNull(),
             'role' => $this->string(20)->notNull()->defaultValue('client'),
             'registration_date' => $this->dateTime()
         ]);

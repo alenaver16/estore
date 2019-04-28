@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignUpForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -61,6 +63,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'frontend';
         return $this->render('index');
     }
 
@@ -84,6 +87,33 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+
+    /**
+     * Sign up action.
+     *
+     * @return Response|string
+     */
+    public function actionSignup(){
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new SignUpForm();
+        if($model->load(\Yii::$app->request->post()) && $model->validate()){
+            $user = new User();
+            $user->setAttributes($model->attributes);
+            $user->role = 'client';
+            $user->password = \Yii::$app->security->generatePasswordHash($model->password);
+            $date = new \DateTime('now');
+            $user->registration_date = $date->format('Y-m-d H:i:s');
+            if($user->validate()) {
+                if ($user->save()) {
+                    return $this->goHome();
+                }
+            }
+        }
+        return $this->render('signup', compact('model'));
     }
 
     /**
