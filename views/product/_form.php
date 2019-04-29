@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use unclead\multipleinput\MultipleInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -15,40 +16,19 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'category_id')->dropDownList(
         \yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name')
     ) ?>
-    <?php
-        echo $form->field($characteristic, 'characteristic')->widget(MultipleInput::className(), [
-            'max' => 2,
-            //'min'               => 1, // should be at least 2 rows
-            //'allowEmptyList'    => false,
-            //'enableGuessTitle'  => true,
-            //'addButtonPosition' => MultipleInput::POS_HEADER, // show add button in the header
-            'columns' => [
-                [
-                    'name'  => 'name',
-                    'title' => 'Водители',
-                ],
-//                [
-//                    'name'  => 'driver_id',
-//                    'type'  => 'dropDownList',
-//                    'title' => 'Водители',
-//                    'options' => ['label' => false],
-//                    'items' => [
-//                        'prompt' => 'пожалуйста, выберите водителя',
-//                        ArrayHelper::map(app\models\Drivers::find()->all(), 'id', 'name')
-//                    ]
-//                ],
-//                [
-//                    'name'  => 'distance',
-//                    'title' => 'Дистанция водителя',
-//                    //'enableError' => true,
-//                    'options' => [
-//                    'class' => 'input-priority'
-//                    ]
-//                ]
+    <?= $form->field($model, 'productCharacteristics')->widget(MultipleInput::className(), [
+        'max' => 15,
+        'columns' => [
+            [
+                'name' => 'name',
+                'title' => 'Characteristic',
+            ],
+            [
+                'name' => 'description',
+                'title' => 'Description',
             ]
-        ])
-        ->label(false);
-        ?>
+        ]
+    ])->label(false); ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

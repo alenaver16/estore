@@ -33,7 +33,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'price', 'category_id'], 'required'],
-            [['price'], 'number'],
+            [['price'], 'number', 'max' => 1000000],
             [['category_id'], 'integer'],
             [['name'], 'string', 'max' => 40],
             [['name'], 'unique'],

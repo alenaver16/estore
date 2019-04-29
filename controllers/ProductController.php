@@ -69,15 +69,7 @@ class ProductController extends Controller
         $productCharacteristic = new ProductCharacteristic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if(Yii::$app->request->post('ProductCharacteristic')) {
-                $characteristicData = Yii::$app->request->post('ProductCharacteristic', []);
-
-//                foreach ($characteristicData as $characteristic){
-//                    $productCharacteristic = new ProductCharacteristic();
-//                    $productCharacteristic->product_id = $model->id;
-//                    $productCharacteristic->name =
-//                }
-            }
+            $this->saveCharacteristic($model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -99,11 +91,14 @@ class ProductController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            ProductCharacteristic::deleteAll(['product_id' => $model->id]);
+            $this->saveCharacteristic($model);
+//            return $this->redirect(['view', 'id' => $model->id]);
         }
 
+
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
@@ -117,7 +112,7 @@ class ProductController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        ProductCharacteristic::deleteAll(['product_id' => $id]);
         return $this->redirect(['index']);
     }
 
@@ -135,5 +130,30 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function getCharacteristic($model)
+    {
+        $res = '';
+        foreach ($model->productCharacteristics as $characteristic) {
+            $res .= '<p>' . $characteristic->name . ' : ' . $characteristic->description . '</p>';
+        }
+        return $res ? $res : '<p>No characteristic</p>';
+    }
+
+    public function saveCharacteristic($model)
+    {
+        $request = (Yii::$app->request->post());
+        $characteristicData = $request['Product']['productCharacteristics'];
+        foreach ($characteristicData as $characteristic) {
+            $productCharacteristic = new ProductCharacteristic();
+            $productCharacteristic->product_id = $model->id;
+            $productCharacteristic->name = $characteristic['name'];
+            $productCharacteristic->description = $characteristic['description'];
+            if ($productCharacteristic->validate()) {
+                $productCharacteristic->save();
+            }
+//            print_r($productCharacteristic->errors);
+        }
     }
 }

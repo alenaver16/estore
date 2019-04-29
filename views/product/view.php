@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Group',
                 'value' => $model->category->group->name
             ],
+            [
+                'label' => 'Characteristic',
+                'value' => \Yii::$app->controller->getCharacteristic($model),
+                'format' => 'raw'
+            ],
         ],
     ]) ?>
 </div>

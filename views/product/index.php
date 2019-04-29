@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'Group',
                 'value' => 'category.group.name',
             ],
-
+//            [
+//                'attribute' => 'Characteristic',
+//                'value' => 'productCharacteristic.name',
+//            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
