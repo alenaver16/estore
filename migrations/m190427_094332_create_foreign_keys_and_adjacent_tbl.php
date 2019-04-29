@@ -31,18 +31,11 @@ class m190427_094332_create_foreign_keys_and_adjacent_tbl extends Migration
             'CASCADE'
         );
         $this->createTable('product_characteristic', [
-            'characteristic_id' => $this->integer()->notNull(),
+            'id' => $this->primaryKey(),
+            'name' => $this->string(40)->notNull(),
+            'description' => $this->text()->notNull(),
             'product_id' => $this->integer()->notNull()
         ]);
-        $this->addForeignKey(
-            'characteristic_fk',
-            'product_characteristic',
-            'characteristic_id',
-            'characteristic',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
         $this->addForeignKey(
             'product_fk',
             'product_characteristic',

@@ -7,10 +7,11 @@ use Yii;
 /**
  * This is the model class for table "product_characteristic".
  *
- * @property int $characteristic_id
+ * @property int $id
+ * @property string $name
+ * @property string $description
  * @property int $product_id
  *
- * @property Characteristic $characteristic
  * @property Product $product
  */
 class ProductCharacteristic extends \yii\db\ActiveRecord
@@ -29,9 +30,11 @@ class ProductCharacteristic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['characteristic_id', 'product_id'], 'required'],
-            [['characteristic_id', 'product_id'], 'integer'],
-            [['characteristic_id'], 'exist', 'skipOnError' => true, 'targetClass' => Characteristic::className(), 'targetAttribute' => ['characteristic_id' => 'id']],
+            [['name', 'product_id'], 'required'],
+            [['description'], 'string'],
+            [['product_id'], 'integer'],
+            [['name'], 'string', 'max' => 40],
+            [['name'], 'unique'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
@@ -42,17 +45,11 @@ class ProductCharacteristic extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'characteristic_id' => 'Characteristic ID',
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
             'product_id' => 'Product ID',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCharacteristic()
-    {
-        return $this->hasOne(Characteristic::className(), ['id' => 'characteristic_id']);
     }
 
     /**

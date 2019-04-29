@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Characteristic;
-use app\models\CharacteristicSearch;
+use app\models\ProductCharacteristic;
+use app\models\ProductCharacteristicSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CharacteristicController implements the CRUD actions for Characteristic model.
+ * ProductCharacteristicController implements the CRUD actions for ProductCharacteristic model.
  */
-class CharacteristicController extends Controller
+class ProductCharacteristicController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Lists all Characteristic models.
+     * Lists all ProductCharacteristic models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CharacteristicSearch();
+        $searchModel = new ProductCharacteristicSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Displays a single Characteristic model.
+     * Displays a single ProductCharacteristic model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Creates a new Characteristic model.
+     * Creates a new ProductCharacteristic model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Characteristic();
+        $model = new ProductCharacteristic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Updates an existing Characteristic model.
+     * Updates an existing ProductCharacteristic model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Deletes an existing Characteristic model.
+     * Deletes an existing ProductCharacteristic model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class CharacteristicController extends Controller
     }
 
     /**
-     * Finds the Characteristic model based on its primary key value.
+     * Finds the ProductCharacteristic model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Characteristic the loaded model
+     * @return ProductCharacteristic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Characteristic::findOne($id)) !== null) {
+        if (($model = ProductCharacteristic::findOne($id)) !== null) {
             return $model;
         }
 

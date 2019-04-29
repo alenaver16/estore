@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Characteristic */
+/* @var $model app\models\ProductCharacteristic */
 
-$this->title = 'Create Characteristic';
-$this->params['breadcrumbs'][] = ['label' => 'Characteristics', 'url' => ['index']];
+$this->title = 'Create Product Characteristic';
+$this->params['breadcrumbs'][] = ['label' => 'Product Characteristics', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="characteristic-create">
+<div class="product-characteristic-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Characteristic;
+use app\models\ProductCharacteristic;
 
 /**
- * CharacteristicSearch represents the model behind the search form of `app\models\Characteristic`.
+ * ProductCharacteristicSearch represents the model behind the search form of `app\models\ProductCharacteristic`.
  */
-class CharacteristicSearch extends Characteristic
+class ProductCharacteristicSearch extends ProductCharacteristic
 {
     /**
      * {@inheritdoc}
@@ -17,7 +17,7 @@ class CharacteristicSearch extends Characteristic
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'product_id'], 'integer'],
             [['name', 'description'], 'safe'],
         ];
     }
@@ -40,7 +40,7 @@ class CharacteristicSearch extends Characteristic
      */
     public function search($params)
     {
-        $query = Characteristic::find();
+        $query = ProductCharacteristic::find();
 
         // add conditions that should always apply here
 
@@ -59,6 +59,7 @@ class CharacteristicSearch extends Characteristic
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'product_id' => $this->product_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

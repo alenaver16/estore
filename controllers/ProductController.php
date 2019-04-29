@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ProductCharacteristic;
 use Yii;
 use app\models\Product;
 use app\models\ProductSearch;
@@ -65,13 +66,24 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $productCharacteristic = new ProductCharacteristic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(Yii::$app->request->post('ProductCharacteristic')) {
+                $characteristicData = Yii::$app->request->post('ProductCharacteristic', []);
+
+//                foreach ($characteristicData as $characteristic){
+//                    $productCharacteristic = new ProductCharacteristic();
+//                    $productCharacteristic->product_id = $model->id;
+//                    $productCharacteristic->name =
+//                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'characteristic' => $productCharacteristic
         ]);
     }
 
