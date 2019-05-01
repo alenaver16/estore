@@ -35,15 +35,10 @@ AppAsset::register($this);
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,38 +60,9 @@ AppAsset::register($this);
                 <div class="user-menu">
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                         <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
                         <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
                         <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><i class="fa fa-user"></i> Login</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="header-right">
-                    <ul class="list-unstyled list-inline">
-                        <li class="dropdown dropdown-small">
-                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span
-                                        class="key">currency :</span><span class="value">USD </span><b
-                                        class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">USD</a></li>
-                                <li><a href="#">INR</a></li>
-                                <li><a href="#">GBP</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown dropdown-small">
-                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span
-                                        class="key">language :</span><span class="value">English </span><b
-                                        class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -109,7 +75,7 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-sm-6">
                 <div class="logo">
-                    <h1><a href="index.html">e<span>Electronics</span></a></h1>
+                    <h1><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">e<span>Electronics</span></a></h1>
                 </div>
             </div>
 
@@ -136,13 +102,12 @@ AppAsset::register($this);
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop page</a></li>
-                    <li><a href="single-product.html">Single product</a></li>
+                    <li class="active"><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">Home</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Shop page</a></li>
                     <li><a href="cart.html">Cart</a></li>
                     <li><a href="checkout.html">Checkout</a></li>
                     <li><a href="#">Category</a></li>
-                    <li><a href="#">Others</a></li>
+                    <li><a href="#">About Us</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
@@ -240,21 +205,18 @@ AppAsset::register($this);
 </div> <!-- End footer bottom area -->
 
 <!-- Latest jQuery form server -->
-<script src="https://code.jquery.com/jquery.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery.min.js"></script>-->
 
 <!-- Bootstrap JS form CDN -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 
 <!-- jQuery sticky menu -->
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
+<!--<script src="js/owl.carousel.min.js"></script>-->
+<!--<script src="js/jquery.sticky.js"></script>-->
 
 <!-- jQuery easing -->
-<script src="js/jquery.easing.1.3.min.js"></script>
-
-<!-- Main Script -->
-<script src="js/main.js"></script>
-
+<!--<script src="js/jquery.easing.1.3.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>-->
 <?php $this->endBody() ?>
 </body>
 </html>

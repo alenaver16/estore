@@ -68,6 +68,27 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionProducts()
+    {
+        $this->layout = 'frontend';
+        return $this->render('products');
+    }
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionProduct()
+    {
+        $this->layout = 'frontend';
+        return $this->render('product');
+    }
+
+    /**
      * Login action.
      *
      * @return Response|string

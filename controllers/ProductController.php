@@ -145,6 +145,7 @@ class ProductController extends Controller
     {
         $this->findModel($id)->delete();
         ProductCharacteristic::deleteAll(['product_id' => $id]);
+        ProductImg::deleteAll(['product_id' => $id]);
         return $this->redirect(['index']);
     }
 
