@@ -15,6 +15,7 @@ use Yii;
  * @property Order[] $orders
  * @property Category $category
  * @property ProductCharacteristic[] $productCharacteristics
+ * @property ProductImg[] $productImages
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -76,5 +77,13 @@ class Product extends \yii\db\ActiveRecord
     public function getProductCharacteristics()
     {
         return $this->hasMany(ProductCharacteristic::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductImages()
+    {
+        return $this->hasMany(ProductImg::className(), ['product_id' => 'id']);
     }
 }

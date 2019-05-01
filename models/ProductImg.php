@@ -5,23 +5,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "product_characteristic".
+ * This is the model class for table "product_img".
  *
  * @property int $id
- * @property string $name
- * @property string $description
+ * @property resource $img
  * @property int $product_id
  *
- * @property Product $product
+ * @property ProductImg $product
+ * @property ProductImg[] $productImgs
  */
-class ProductCharacteristic extends \yii\db\ActiveRecord
+class ProductImg extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'product_characteristic';
+        return 'product_img';
     }
 
     /**
@@ -30,10 +30,9 @@ class ProductCharacteristic extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'product_id'], 'required'],
-            [['description'], 'string'],
+            [['img', 'product_id'], 'required'],
+            [['img'], 'string'],
             [['product_id'], 'integer'],
-            [['name'], 'string', 'max' => 40],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
@@ -45,9 +44,8 @@ class ProductCharacteristic extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'product_id' => 'Product ID',
+            'img' => 'Image',
+            'product_id' => 'Product',
         ];
     }
 
@@ -58,4 +56,10 @@ class ProductCharacteristic extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
+
+    public function getProductImgs()
+    {
+        return $this->hasMany(ProductImg::className(), ['product_id' => 'id']);
+    }
+
 }

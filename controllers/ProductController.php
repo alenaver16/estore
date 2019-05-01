@@ -3,12 +3,15 @@
 namespace app\controllers;
 
 use app\models\ProductCharacteristic;
+use app\models\ProductImg;
+use app\models\UploadImageForm;
 use Yii;
 use app\models\Product;
 use app\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -66,16 +69,30 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
-        $productCharacteristic = new ProductCharacteristic();
+        $imagesForm = new UploadImageForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->saveCharacteristic($model);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $model->save();
+                $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
+                if ($imagesForm->imageFiles && $imagesForm->upload()) {
+                    foreach ($imagesForm->imageFiles as $imageFile) {
+                        $productImage = new ProductImg();
+                        $productImage->product_id = $model->id;
+                        $productImage->img = $imageFile->name;
+                        if ($productImage->validate()) {
+                            $productImage->save();
+                        }
+                    }
+                }
+                $this->saveCharacteristic($model);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'characteristic' => $productCharacteristic
+            'imagesForm' => $imagesForm
         ]);
     }
 
@@ -89,16 +106,31 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $imagesForm = $imagesForm = new UploadImageForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            ProductCharacteristic::deleteAll(['product_id' => $model->id]);
-            $this->saveCharacteristic($model);
-//            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $model->save();
+                $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
+                if ($imagesForm->imageFiles && $imagesForm->upload()) {
+                    foreach ($imagesForm->imageFiles as $imageFile) {
+                        $productImage = new ProductImg();
+                        $productImage->product_id = $model->id;
+                        $productImage->img = $imageFile->name;
+                        if ($productImage->validate()) {
+                            $productImage->save();
+                        }
+                    }
+                }
+                ProductCharacteristic::deleteAll(['product_id' => $model->id]);
+                $this->saveCharacteristic($model);
+            }
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-
         return $this->render('update', [
-            'model' => $model
+            'model' => $model,
+            'imagesForm' => $imagesForm
         ]);
     }
 
@@ -153,7 +185,6 @@ class ProductController extends Controller
             if ($productCharacteristic->validate()) {
                 $productCharacteristic->save();
             }
-//            print_r($productCharacteristic->errors);
         }
     }
 }

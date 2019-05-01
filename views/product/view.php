@@ -44,4 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <?php if ($model->productImages) { ?>
+        <h4>Images:</h4><hr>
+         <?php foreach ($model->productImages as $image) { ?>
+            <img src="/images/<?= $image->img ?>" alt="">
+        <?php }
+    } ?>
 </div>
