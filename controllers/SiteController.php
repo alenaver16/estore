@@ -2,9 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Product;
+use app\models\ProductSearch;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -75,16 +79,34 @@ class SiteController extends Controller
     public function actionProducts()
     {
         $this->layout = 'frontend';
-        return $this->render('products');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find(),
+            'sort' => [
+                'defaultOrder' => ['name' => SORT_DESC ],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ]
+        ]);
+
+        return $this->render('products', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
     /**
      * Displays homepage.
      *
      * @return string
      */
-    public function actionProduct()
+    public function actionProduct($id)
     {
         $this->layout = 'frontend';
+        $model = Product::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('Page not found');
+        }
+
         return $this->render('product');
     }
 
