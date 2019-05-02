@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use Yii;
 use app\models\Group;
 use app\models\GroupSearch;
@@ -67,7 +68,7 @@ class GroupController extends Controller
         $model = new Group();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -87,12 +88,26 @@ class GroupController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDeleteSelectedItems()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $itemsForDelete = Yii::$app->request->post('items');
+        if ($itemsForDelete) {
+            Category::updateAll(['group_id' => Group::TYPE_OTHER], ['group_id' => $itemsForDelete]);
+            Group::deleteAll(['id' => $itemsForDelete]);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -104,6 +119,7 @@ class GroupController extends Controller
      */
     public function actionDelete($id)
     {
+        Category::updateAll(['group_id' => Group::TYPE_OTHER], ['group_id' => $id]);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

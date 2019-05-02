@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Product;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
@@ -67,7 +68,7 @@ class CategoryController extends Controller
         $model = new Category();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -87,12 +88,26 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDeleteSelectedItems()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $itemsForDelete = Yii::$app->request->post('items');
+        if ($itemsForDelete) {
+            Product::updateAll(['category_id' => Category::TYPE_OTHER], ['category_id' => $itemsForDelete]);
+            Category::deleteAll(['id' => $itemsForDelete]);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -104,6 +119,7 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
+        Product::updateAll(['category_id' => Category::TYPE_OTHER], ['category_id' => $id]);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

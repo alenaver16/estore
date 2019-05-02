@@ -9,6 +9,7 @@ use Yii;
 use app\models\Product;
 use app\models\ProductSearch;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -74,18 +75,8 @@ class ProductController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $model->save();
-                $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
-                if ($imagesForm->imageFiles && $imagesForm->upload()) {
-                    foreach ($imagesForm->imageFiles as $imageFile) {
-                        $productImage = new ProductImg();
-                        $productImage->product_id = $model->id;
-                        $productImage->img = $imageFile->name;
-                        if ($productImage->validate()) {
-                            $productImage->save();
-                        }
-                    }
-                }
                 $this->saveCharacteristic($model);
+                $this->saveImage($model);
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -106,24 +97,14 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $imagesForm = $imagesForm = new UploadImageForm();
+        $imagesForm = new UploadImageForm();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $model->save();
-                $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
-                if ($imagesForm->imageFiles && $imagesForm->upload()) {
-                    foreach ($imagesForm->imageFiles as $imageFile) {
-                        $productImage = new ProductImg();
-                        $productImage->product_id = $model->id;
-                        $productImage->img = $imageFile->name;
-                        if ($productImage->validate()) {
-                            $productImage->save();
-                        }
-                    }
-                }
                 ProductCharacteristic::deleteAll(['product_id' => $model->id]);
                 $this->saveCharacteristic($model);
+                $this->saveImage($model);
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -165,6 +146,21 @@ class ProductController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+       public function actionDeleteSelectedItems()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $itemsForDelete = Yii::$app->request->post('items');
+        if ($itemsForDelete) {
+            Product::deleteAll(['id' => $itemsForDelete]);
+            ProductCharacteristic::deleteAll(['product_id' => $itemsForDelete]);
+            ProductImg::deleteAll(['product_id' => $itemsForDelete]);
+            return true;
+        }
+        return false;
+    }
+
     public function getCharacteristic($model)
     {
         $res = '';
@@ -185,6 +181,21 @@ class ProductController extends Controller
             $productCharacteristic->description = $characteristic['description'];
             if ($productCharacteristic->validate()) {
                 $productCharacteristic->save();
+            }
+        }
+    }
+
+    public function saveImage($model){
+        $imagesForm = new UploadImageForm();
+        $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
+        if ($imagesForm->imageFiles && $imagesForm->upload()) {
+            foreach ($imagesForm->imageFiles as $imageFile) {
+                $productImage = new ProductImg();
+                $productImage->product_id = $model->id;
+                $productImage->img = $imageFile->name;
+                if ($productImage->validate()) {
+                    $productImage->save();
+                }
             }
         }
     }

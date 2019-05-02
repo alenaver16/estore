@@ -14,6 +14,8 @@ use Yii;
  */
 class Group extends \yii\db\ActiveRecord
 {
+    const TYPE_OTHER = 1;
+
     /**
      * {@inheritdoc}
      */

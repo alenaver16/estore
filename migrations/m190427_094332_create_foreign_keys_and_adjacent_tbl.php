@@ -12,6 +12,14 @@ class m190427_094332_create_foreign_keys_and_adjacent_tbl extends Migration
      */
     public function safeUp()
     {
+        $this->insert('group', [
+            'name' => 'Other'
+        ]);
+        $this->insert('category', [
+            'name' => 'Other',
+            'group_id' => Yii::$app->db->createCommand('SELECT id FROM `group` WHERE name="Other"')->execute()
+        ]);
+
         $this->addForeignKey(
             'category_fk',
             'product',

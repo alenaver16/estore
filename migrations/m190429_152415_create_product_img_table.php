@@ -14,7 +14,7 @@ class m190429_152415_create_product_img_table extends Migration
     {
         $this->createTable('{{%product_img}}', [
             'id' => $this->primaryKey(),
-            'img' => $this->string(40)->notNull(),
+            'img' => $this->string(100)->notNull(),
             'product_id' => $this->integer()->notNull()
         ]);
         $this->addForeignKey(
