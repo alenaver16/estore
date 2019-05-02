@@ -1013,3 +1013,64 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     /*width: 100%; !* ширина картинки *!*/
     /*height: auto; !* высота картинки *!*/
 /*}*/
+
+
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.responsiveGrid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    width: 100%;
+}
+.responsiveGrid .tileData {
+    width: 313px;
+    padding: 20px 10px;
+    min-height: 275px;
+}
+.responsiveGrid .tileData:hover .tile {
+    background: #ccc;
+    box-shadow: 0px 0px 20px 7px #777;
+}
+.responsiveGrid .tileData:hover .tile .title {
+    border-bottom: 1px solid #fff;
+    background: #000;
+    color: #fff;
+}
+.responsiveGrid .tileData .tile {
+    border: 1px solid #ccc;
+    transition: 0.5s;
+    margin: 10px;
+    height: 100%;
+}
+.responsiveGrid .tileData .tile .title {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: 0 0 2px 0px #ccc;
+    font-family: 'Amaranth', sans-serif;
+    letter-spacing: 1.2px;
+}
+.responsiveGrid .tileData .tile .back-img-container {
+    padding: 15px;
+    height: 190px;
+}
+.responsiveGrid .tileData .tile .back-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.responsiveGrid:after {
+    content: "";
+    flex: auto;
+    width: 313px;
+    padding: 10px;
+}

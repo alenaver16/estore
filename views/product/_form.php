@@ -32,11 +32,27 @@ use app\models\Category;
             ]
         ]
     ])->label(false); ?>
-    <?php if ($model->productImages) {
-        foreach ($model->productImages as $image) { ?>
-            <img src="/images/<?= $image->img ?>" alt="">
-        <?php }
-    } ?>
+
+    <?php if ($model->productImages) { ?>
+        <h4>Images:</h4>
+        <hr>
+        <div class="root">
+            <div class="responsiveGrid">
+                <?php foreach ($model->productImages as $image) { ?>
+                    <div class="tileData">
+                        <div class="tile">
+                            <div class="title"><?= $image->img ?></div>
+                            <div class="back-img-container">
+                                <img src="/images/<?= $image->img ?>" alt="<?= $model->name; ?>">
+                                <span class="close js-delete-img" data-img="<?= $image->id ?>">&times;</span>
+                                <span class="glyphicon glyphicon-eye-open js-set-main-img" data-img="<?= $image->id ?>" style="opacity: 0.2; cursor: pointer;"></span>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    <?php } ?>
     <?= $form->field($imagesForm, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

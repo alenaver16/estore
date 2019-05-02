@@ -10,6 +10,7 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="product-view">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -45,10 +46,22 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+
     <?php if ($model->productImages) { ?>
-        <h4>Images:</h4><hr>
-         <?php foreach ($model->productImages as $image) { ?>
-            <img src="/images/<?= $image->img ?>" alt="">
-        <?php }
-    } ?>
-</div>
+        <h4>Images:</h4>
+        <hr>
+        <div class="root">
+            <div class="responsiveGrid">
+                <?php foreach ($model->productImages as $image) { ?>
+                    <div class="tileData">
+                        <div class="tile">
+                            <div class="title"><?= $image->img ?></div>
+                            <div class="back-img-container">
+                                <img src="/images/<?= $image->img ?>" alt="<?= $model->name; ?>">
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    <?php } ?>

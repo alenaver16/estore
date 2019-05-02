@@ -34,6 +34,12 @@ class ProductController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        \Yii::$app->getView()->registerJsFile('@web/js/backend/product.js', ['depends' => [\yii\web\YiiAsset::className()]]);
+        return parent::beforeAction($action);
+    }
+
     /**
      * Lists all Product models.
      * @return mixed
@@ -129,6 +135,46 @@ class ProductController extends Controller
         ProductImg::deleteAll(['product_id' => $id]);
         return $this->redirect(['index']);
     }
+    public function actionDeleteSelectedItems()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $itemsForDelete = Yii::$app->request->post('items');
+        if ($itemsForDelete) {
+            Product::deleteAll(['id' => $itemsForDelete]);
+            ProductCharacteristic::deleteAll(['product_id' => $itemsForDelete]);
+            ProductImg::deleteAll(['product_id' => $itemsForDelete]);
+            return true;
+        }
+        return false;
+    }
+
+    public function actionDeleteImage()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $imgId = Yii::$app->request->post('imgId');
+        if ($imgId) {
+            ProductImg::deleteAll(['id' => $imgId]);
+            return true;
+        }
+        return false;
+    }
+
+    public function actionSetMainImage()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $imgId = Yii::$app->request->post('imgId');
+        if ($imgId) {
+            ProductImg::deleteAll(['id' => $imgId]);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Finds the Product model based on its primary key value.
@@ -144,21 +190,6 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-       public function actionDeleteSelectedItems()
-    {
-        if (!Yii::$app->request->isAjax) {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-        $itemsForDelete = Yii::$app->request->post('items');
-        if ($itemsForDelete) {
-            Product::deleteAll(['id' => $itemsForDelete]);
-            ProductCharacteristic::deleteAll(['product_id' => $itemsForDelete]);
-            ProductImg::deleteAll(['product_id' => $itemsForDelete]);
-            return true;
-        }
-        return false;
     }
 
     public function getCharacteristic($model)
