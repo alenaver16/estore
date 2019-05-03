@@ -62,4 +62,8 @@ class ProductImg extends \yii\db\ActiveRecord
         return $this->hasMany(ProductImg::className(), ['product_id' => 'id']);
     }
 
+    public static function isMainImg($id)
+    {
+        return Product::findOne(['main_image_id' => $id]);
+    }
 }

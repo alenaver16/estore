@@ -19,6 +19,7 @@
             echo \yii\widgets\ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_products',
+                'summary' => false
 //                'pager' => [
 //                    'options' => [
 //                        'tag' => 'div',

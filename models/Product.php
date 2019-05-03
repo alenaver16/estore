@@ -11,11 +11,16 @@ use Yii;
  * @property string $name
  * @property double $price
  * @property int $category_id
+ * @property string $creation_date
+ * @property string $edit_date
+ * @property int $main_image_id
+ * @property double $sale_price
  *
  * @property Order[] $orders
  * @property Category $category
+ * @property ProductImg $mainImage
  * @property ProductCharacteristic[] $productCharacteristics
- * @property ProductImg[] $productImages
+ * @property ProductImg[] $productImgs
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -34,11 +39,13 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'price', 'category_id'], 'required'],
-            [['price'], 'number', 'max' => 1000000],
-            [['category_id', 'sale_price'], 'integer'],
+            [['price', 'sale_price'], 'number', 'max' => 1000000],
+            [['category_id', 'main_image_id'], 'integer'],
             [['name'], 'string', 'max' => 40],
             [['name'], 'unique'],
+            [['creation_date', 'edit_date'], 'safe'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['main_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductImg::className(), 'targetAttribute' => ['main_image_id' => 'id']],
         ];
     }
 
@@ -52,6 +59,10 @@ class Product extends \yii\db\ActiveRecord
             'name' => 'Name',
             'price' => 'Price',
             'category_id' => 'Category',
+            'creation_date' => 'Creation Date',
+            'edit_date' => 'Edit Date',
+            'main_image_id' => 'Main Image',
+            'sale_price' => 'Sale Price',
         ];
     }
 
@@ -85,5 +96,13 @@ class Product extends \yii\db\ActiveRecord
     public function getProductImages()
     {
         return $this->hasMany(ProductImg::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMainImage()
+    {
+        return $this->hasOne(ProductImg::className(), ['id' => 'main_image_id']);
     }
 }

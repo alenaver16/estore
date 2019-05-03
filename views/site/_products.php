@@ -9,13 +9,11 @@ use \yii\helpers\Html;
 <div class="col-md-3 col-sm-6">
     <div class="single-shop-product">
         <div class="product-upper">
-            <?php if ($model->productImages) { ?>
-                <?php foreach ($model->productImages as $image) { ?>
-                    <div class="img-container">
-                        <img src="/images/<?= $image->img ?>" alt="" class="main-product-img">
-                    </div>
-                <?php }
-            } else { ?>
+            <?php if ($model->mainImage) { ?>
+                <div class="img-container">
+                    <img src="/images/<?= $model->mainImage->img ?>" alt="" class="main-product-img">
+                </div>
+            <?php } else { ?>
                 <div class="img-container">
                     <img src="/images/noimage.png" alt="" class="main-product-img">
                 </div>
@@ -24,7 +22,9 @@ use \yii\helpers\Html;
         <h2><?= Html::a(Html::encode($model->name), Yii::$app->urlManager->createUrl(['site/product', 'id' => $model->id])); ?></h2>
         <div class="product-carousel-price">
             <ins>$<?= Html::encode($model->price); ?></ins>
-            <!--            <del>$999.00</del>-->
+            <?php if ($model->sale_price) { ?>
+                <del>$<?= Html::encode($model->sale_price); ?></del>
+            <?php } ?>
         </div>
         <div class="product-option-shop">
             <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow"

@@ -79,6 +79,8 @@ class ProductController extends Controller
         $imagesForm = new UploadImageForm();
 
         if ($model->load(Yii::$app->request->post())) {
+            $date = new \DateTime('now');
+            $model->creation_date = $date->format('Y-m-d H:i:s');
             if ($model->validate()) {
                 $model->save();
                 $this->saveCharacteristic($model);
@@ -106,6 +108,8 @@ class ProductController extends Controller
         $imagesForm = new UploadImageForm();
 
         if ($model->load(Yii::$app->request->post())) {
+            $date = new \DateTime('now');
+            $model->edit_date = $date->format('Y-m-d H:i:s');
             if ($model->validate()) {
                 $model->save();
                 ProductCharacteristic::deleteAll(['product_id' => $model->id]);
@@ -169,8 +173,9 @@ class ProductController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
         $imgId = Yii::$app->request->post('imgId');
+        $productId = ProductImg::findOne(['id' => $imgId])->product_id;
         if ($imgId) {
-            ProductImg::deleteAll(['id' => $imgId]);
+            Product::updateAll(['main_image_id' => $imgId], ['id' => $productId]);
             return true;
         }
         return false;

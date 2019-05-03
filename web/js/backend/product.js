@@ -33,7 +33,8 @@ function setMainImage() {
         url: '/product/set-main-image',
         data: {imgId: $(this).data('img')},
         success: function () {
-            $('.js-set-main-img').css('opacity', 0)
+            $(".product-images-block").find(".js-set-main-img").css('opacity', 0.2);
+            self.css('opacity', 1);
         }
     });
 }

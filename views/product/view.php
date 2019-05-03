@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use \app\models\ProductImg;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -43,6 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => \Yii::$app->controller->getCharacteristic($model),
                 'format' => 'raw'
             ],
+            'creation_date',
+            'edit_date',
+            'sale_price',
         ],
     ]) ?>
 
@@ -50,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if ($model->productImages) { ?>
         <h4>Images:</h4>
         <hr>
-        <div class="root">
+        <div class="product-images-block">
             <div class="responsiveGrid">
                 <?php foreach ($model->productImages as $image) { ?>
                     <div class="tileData">
@@ -58,6 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="title"><?= $image->img ?></div>
                             <div class="back-img-container">
                                 <img src="/images/<?= $image->img ?>" alt="<?= $model->name; ?>">
+                                <span class="glyphicon glyphicon-eye-open js-set-main-img" data-img="<?= $image->id ?>"
+                                      <?= ProductImg::isMainImg($image->id) ? 'style="opacity: 1; cursor: pointer;"' : 'style="opacity: 0.2; cursor: pointer;"'?>>
+                                </span>
                             </div>
                         </div>
                     </div>
