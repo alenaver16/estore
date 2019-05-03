@@ -95,7 +95,7 @@ class SiteController extends Controller
         ]);
     }
     /**
-     * Displays homepage.
+     * Displays product page.
      *
      * @return string
      */
@@ -106,8 +106,25 @@ class SiteController extends Controller
         if (!$model) {
             throw new NotFoundHttpException('Page not found');
         }
+        $relatedProducts = Product::find()->where(['category_id' => $model->category_id])
+            ->andWhere(['<>', 'id', $id])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(6)->all();
 
-        return $this->render('product');
+        $recentlyProducts = Product::find()->where(['<>', 'id', $id])
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(5)->all();
+
+        $products = Product::find()->where(['<>', 'id', $id])
+            ->orderBy(['rand()' => SORT_DESC])
+            ->limit(4)->all();
+
+        return $this->render('product', [
+            'model' => $model,
+            'related' => $relatedProducts,
+            'recently' => $recentlyProducts,
+            'products' => $products
+        ]);
     }
 
     /**
