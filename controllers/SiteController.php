@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\Product;
-use app\models\ProductSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -167,11 +166,6 @@ class SiteController extends Controller
             'recently' => $recentlyProducts,
             'products' => $products
         ]);
-    }
-
-    public function actionCart(){
-        $this->layout = 'frontend';
-        return $this->render('cart');
     }
 
     public function actionCheckout(){

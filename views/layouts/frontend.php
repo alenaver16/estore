@@ -12,6 +12,12 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$this->registerJsFile('/js/frontend.js', [
+    'depends' => [
+        \yii\web\YiiAsset::className()
+    ]
+]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -60,8 +66,8 @@ AppAsset::register($this);
                 <div class="user-menu">
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i> My Cart</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i class="fa fa-user"></i> Checkout</a></li>
                         <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><i class="fa fa-user"></i> Login</a></li>
                     </ul>
                 </div>
@@ -105,7 +111,7 @@ AppAsset::register($this);
                     <li class="active"><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">Home</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Products</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/categories') ?>">Categories</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/cart') ?>">Cart</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Checkout</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/about') ?>">About Us</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Contact</a></li>

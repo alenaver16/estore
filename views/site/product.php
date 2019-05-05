@@ -49,9 +49,9 @@ use \yii\helpers\Html;
                                     <a href="<?= Yii::$app->urlManager->createUrl(['site/product', 'id' => $product->id]) ?>">
                                         <?= Html::encode($product->name); ?></a></h2>
                                 <div class="product-sidebar-price">
-                                    <ins>$<?= Html::encode($model->price); ?></ins>
-                                    <?php if ($model->sale_price) { ?>
-                                        <del>$<?= Html::encode($model->sale_price); ?></del>
+                                    <ins>$<?= Html::encode($product->price); ?></ins>
+                                    <?php if ($product->sale_price) { ?>
+                                        <del>$<?= Html::encode($product->sale_price); ?></del>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -116,20 +116,19 @@ use \yii\helpers\Html;
                                     <?php } ?>
                                 </div>
 
-                                <form action="" class="cart">
+                                <form action="../cart/add" class="cart">
                                     <div class="quantity">
                                         <input type="number" size="4" class="input-text qty text" title="Qty" value="1"
-                                               name="quantity" min="1" step="1">
+                                               name="qty" min="1" step="1">
+                                        <?= Html::hiddenInput('id', $model->id) ?>
                                     </div>
-                                    <button class="add_to_cart_button" type="submit">Add to cart</button>
+                                    <button type="submit">Add to cart</button>
                                 </form>
 
                                 <div class="product-inner-category">
                                     <p>
                                         Category: <?= Html::a(Html::encode($model->category->name), Yii::$app->urlManager->createUrl(['site/category', 'id' => $model->category_id])); ?>
                                         .
-                                        Tags: <a href="">awesome</a>,
-                                        <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>.
                                     </p>
                                 </div>
 
@@ -212,7 +211,7 @@ use \yii\helpers\Html;
                                                 </div>
                                             <?php } ?>
                                             <div class="product-hover">
-                                                <a href="<?= Yii::$app->urlManager->createUrl(['site/add-to-cart', 'id' => $relatedItem->id]) ?>"
+                                                <a href="<?= Yii::$app->urlManager->createUrl(['cart/add', 'id' => $relatedItem->id]) ?>"
                                                    class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Add to
                                                     cart
                                                 </a>

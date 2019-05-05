@@ -50,7 +50,18 @@ $config = [
             'rules' => [
             ],
         ],
-
+        'cart' => [
+            'class' => 'devanych\cart\Cart',
+            'storageClass' => 'devanych\cart\storage\CookieStorage',
+            'calculatorClass' => 'devanych\cart\calculators\SimpleCalculator',
+            'params' => [
+                'key' => 'cart',
+                'expire' => 604800,
+                'productClass' => 'app\models\Product',
+                'productFieldId' => 'id',
+                'productFieldPrice' => 'price',
+            ],
+        ],
     ],
     'params' => $params,
 ];
