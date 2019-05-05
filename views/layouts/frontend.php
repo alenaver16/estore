@@ -103,12 +103,12 @@ AppAsset::register($this);
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">Home</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Shop page</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
-                    <li><a href="#">Category</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Products</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/categories') ?>">Categories</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/cart') ?>">Cart</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Checkout</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/about') ?>">About Us</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -187,8 +187,7 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>&copy; 2015 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by <a
-                                href="http://wpexpand.com" target="_blank">WP Expand</a></p>
+                    <p>&copy; 2019 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by Alona Vereshchaka</a></p>
                 </div>
             </div>
 
@@ -204,19 +203,6 @@ AppAsset::register($this);
     </div>
 </div> <!-- End footer bottom area -->
 
-<!-- Latest jQuery form server -->
-<!--<script src="https://code.jquery.com/jquery.min.js"></script>-->
-
-<!-- Bootstrap JS form CDN -->
-<!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
-
-<!-- jQuery sticky menu -->
-<!--<script src="js/owl.carousel.min.js"></script>-->
-<!--<script src="js/jquery.sticky.js"></script>-->
-
-<!-- jQuery easing -->
-<!--<script src="js/jquery.easing.1.3.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.js"></script>-->
 <?php $this->endBody() ?>
 </body>
 </html>

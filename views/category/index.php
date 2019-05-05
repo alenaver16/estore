@@ -12,11 +12,6 @@ $this->registerJsFile('/assets/8d9c8530/yii.gridView.js', [
         \yii\web\YiiAsset::className()
     ]
 ]);
-$this->registerJsFile('@web/js/backend/category.js', [
-    'depends' => [
-        \yii\web\YiiAsset::className()
-    ]
-]);
 
 $this->title = 'Categories';
 $this->params['breadcrumbs'][] = $this->title;

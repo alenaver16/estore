@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property int $group_id
+ *  * @property int $image
  *
  * @property Group $group
  * @property Product[] $products
@@ -35,6 +36,7 @@ class Category extends \yii\db\ActiveRecord
             [['name', 'group_id'], 'required'],
             [['group_id'], 'integer'],
             [['name'], 'string', 'max' => 40],
+            [['image'], 'string', 'max' => 100],
             [['name'], 'unique'],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
         ];

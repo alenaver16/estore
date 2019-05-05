@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use app\models\Product;
 use app\models\ProductSearch;
 use Yii;
@@ -83,7 +84,7 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find(),
             'sort' => [
-                'defaultOrder' => ['name' => SORT_DESC ],
+                'defaultOrder' => ['id' => SORT_DESC ],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -94,6 +95,47 @@ class SiteController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionCategories()
+    {
+        $this->layout = 'frontend';
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => Category::find(),
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC ],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ]
+        ]);
+
+        return $this->render('categories', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCategory($id)
+    {
+        $this->layout = 'frontend';
+
+        $categoryName = Category::findOne(['id' => $id])->name;
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find()->andWhere(['category_id'=>$id]),
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC ],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ]
+        ]);
+
+        return $this->render('category', [
+            'dataProvider' => $dataProvider,
+            'categoryName' => $categoryName
+        ]);
+    }
+
     /**
      * Displays product page.
      *
@@ -125,6 +167,16 @@ class SiteController extends Controller
             'recently' => $recentlyProducts,
             'products' => $products
         ]);
+    }
+
+    public function actionCart(){
+        $this->layout = 'frontend';
+        return $this->render('cart');
+    }
+
+    public function actionCheckout(){
+        $this->layout = 'frontend';
+        return $this->render('checkout');
     }
 
     /**

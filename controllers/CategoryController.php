@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use app\models\Product;
+use app\models\UploadImageForm;
 use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -28,6 +30,12 @@ class CategoryController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        \Yii::$app->getView()->registerJsFile('@web/js/backend/category.js', ['depends' => [\yii\web\YiiAsset::className()]]);
+        return parent::beforeAction($action);
     }
 
     /**
@@ -66,13 +74,16 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
+        $imagesForm = new UploadImageForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->saveImage($model);
             return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'imagesForm' => $imagesForm
         ]);
     }
 
@@ -86,13 +97,16 @@ class CategoryController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $imagesForm = new UploadImageForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->saveImage($model);
             return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'imagesForm' => $imagesForm
         ]);
     }
 
@@ -139,5 +153,31 @@ class CategoryController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function saveImage($model){
+        $imagesForm = new UploadImageForm();
+        $imagesForm->imageFiles = UploadedFile::getInstances($imagesForm, 'imageFiles');
+        if ($imagesForm->imageFiles && $imagesForm->upload()) {
+            foreach ($imagesForm->imageFiles as $imageFile) {
+                $model->image = $imageFile->name;
+                if ($model->validate()) {
+                    $model->save();
+                }
+            }
+        }
+    }
+
+    public function actionDeleteImage()
+    {
+        if (!Yii::$app->request->isAjax) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        $categoryId = Yii::$app->request->post('categoryId');
+        if ($categoryId) {
+            Category::updateAll(['image' => ''], ['id' => $categoryId]);
+            return true;
+        }
+        return false;
     }
 }
