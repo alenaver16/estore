@@ -113,7 +113,6 @@ $this->registerJsFile('/js/frontend.js', [
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/categories') ?>">Categories</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Checkout</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/about') ?>">About Us</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Contact</a></li>
                 </ul>
             </div>

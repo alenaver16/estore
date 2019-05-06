@@ -68,7 +68,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'frontend';
-        return $this->render('index');
+        $model = Product::find()->limit(6)->orderBy(['id' => SORT_DESC])->all();
+        $productSellers = Product::find()->limit(3)->orderBy(['name' => SORT_ASC])->all();
+        $productView = Product::find()->limit(3)->orderBy(['id' => SORT_ASC])->all();
+        $productRecently = Product::find()->limit(3)->orderBy(['id' => SORT_DESC])->all();
+        return $this->render('index', [
+            'models' => $model,
+            'productSellers' => $productSellers,
+            'productView' => $productView,
+            'productRecently' => $productRecently
+        ]);
     }
 
     /**
@@ -241,24 +250,19 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        $this->layout = 'frontend';
+        return $this->render('contact');
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
+    public function actionSendContactEmail($name, $email, $message){
+        Yii::$app->mailer->compose('contact',  [
+            'name' => $name,
+            'email' => $email,
+            'message' => $message
+        ])
+        ->setFrom('from@domain.com')
+            ->setTo('alenavereshaka16@gmail.com')
+            ->setSubject('Message subject')
+            ->send();
     }
 }
