@@ -28,8 +28,8 @@ use \yii\helpers\Html;
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="">
-                        <input type="text" placeholder="Search products...">
+                    <form action="search-product">
+                        <input type="text" placeholder="Search products..." name="searchProduct">
                         <input type="submit" value="Search">
                     </form>
                 </div>
@@ -226,9 +226,9 @@ use \yii\helpers\Html;
                                                 <?= Html::encode($relatedItem->name) ?>
                                             </a></h2>
                                         <div class="product-carousel-price">
-                                            <ins>$<?= Html::encode($model->price); ?></ins>
-                                            <?php if ($model->sale_price) { ?>
-                                                <del>$<?= Html::encode($model->sale_price); ?></del>
+                                            <ins>$<?= Html::encode($relatedItem->price); ?></ins>
+                                            <?php if ($relatedItem->sale_price) { ?>
+                                                <del>$<?= Html::encode($relatedItem->sale_price); ?></del>
                                             <?php } ?>
                                         </div>
                                     </div>

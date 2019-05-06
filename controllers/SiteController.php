@@ -60,6 +60,12 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        $this->layout = 'frontend';
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
@@ -87,8 +93,6 @@ class SiteController extends Controller
      */
     public function actionProducts()
     {
-        $this->layout = 'frontend';
-
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find(),
             'sort' => [
@@ -151,7 +155,6 @@ class SiteController extends Controller
      */
     public function actionProduct($id)
     {
-        $this->layout = 'frontend';
         $model = Product::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException('Page not found');
@@ -182,6 +185,22 @@ class SiteController extends Controller
         return $this->render('checkout');
     }
 
+    public function actionSearchProduct($searchProduct){
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find()->where(['like', 'name', $searchProduct]),
+            'sort' => [
+                'defaultOrder' => ['name' => SORT_DESC ],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ]
+        ]);
+
+        return $this->render('products', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Login action.
      *
@@ -189,6 +208,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -199,9 +219,10 @@ class SiteController extends Controller
         }
 
         $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+//        return $this->render('login', [
+//            'model' => $model,
+//        ]);
+        return $this->render('login-signup', ['model' => $model]);
     }
 
 
@@ -215,6 +236,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
         $model = new SignUpForm();
+        var_dump(\Yii::$app->request->post());
         if($model->load(\Yii::$app->request->post()) && $model->validate()){
             $user = new User();
             $user->setAttributes($model->attributes);
