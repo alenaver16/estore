@@ -201,47 +201,21 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
+    public function actionLoginSignup()
     {
-        $this->layout = 'login';
+        $this->layout = 'empty';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-//        return $this->render('login', [
-//            'model' => $model,
-//        ]);
-        return $this->render('login-signup', ['model' => $model]);
-    }
-
-
-    /**
-     * Sign up action.
-     *
-     * @return Response|string
-     */
-    public function actionSignup(){
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-        $model = new SignUpForm();
-        var_dump(\Yii::$app->request->post());
-        if($model->load(\Yii::$app->request->post()) && $model->validate()){
+        $login = new LoginForm();
+        $signup = new SignUpForm();
+        if($signup->load(\Yii::$app->request->post()) && $signup->validate()){
             $user = new User();
-            $user->setAttributes($model->attributes);
+            $user->setAttributes($signup->attributes);
             $user->role = 'client';
-            $user->password = \Yii::$app->security->generatePasswordHash($model->password);
+            $user->password = \Yii::$app->security->generatePasswordHash($signup->password);
             $date = new \DateTime('now');
             $user->registration_date = $date->format('Y-m-d H:i:s');
             if($user->validate()) {
@@ -250,9 +224,12 @@ class SiteController extends Controller
                 }
             }
         }
-        return $this->render('signup', compact('model'));
-    }
+        if ($login->load(Yii::$app->request->post()) && $login->login()) {
+            return $this->goBack();
+        }
 
+        return $this->render('login-signup', ['login' => $login, 'signup' => $signup]);
+    }
     /**
      * Logout action.
      *

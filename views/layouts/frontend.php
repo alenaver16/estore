@@ -61,9 +61,15 @@ $this->registerJsFile('/js/frontend.js', [
                 <div class="user-menu">
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i class="fa fa-user"></i> Checkout</a></li>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i>
+                                My Cart</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i
+                                        class="fa fa-user"></i> Checkout</a></li>
+                        <li>
+                            <a data-method="post" href="<?= Yii::$app->user->isGuest ? Yii::$app->urlManager->createUrl('site/login-signup') :
+                                Yii::$app->urlManager->createUrl('site/logout') ?>"><i class="fa fa-user"></i>
+                                <?= Yii::$app->user->isGuest ? 'Login' : 'Logout' ?></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -76,7 +82,8 @@ $this->registerJsFile('/js/frontend.js', [
         <div class="row">
             <div class="col-sm-6">
                 <div class="logo">
-                    <h1><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">e<span>Electronics</span></a></h1>
+                    <h1><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">e<span>Electronics</span></a>
+                    </h1>
                 </div>
             </div>
 
@@ -109,6 +116,11 @@ $this->registerJsFile('/js/frontend.js', [
                     <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Checkout</a></li>
                     <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Contact</a></li>
+                    <?= Yii::$app->user->isGuest ?
+                        '<li><a href="' . Yii::$app->urlManager->createUrl('../site/login-signup') . '">Login</a></li>'
+                        :
+                        '<li><a data-method="post" href="' . Yii::$app->urlManager->createUrl('../site/logout') . '">Logout (' . Yii::$app->user->identity->username . ')</a></li>'
+                    ?>
                 </ul>
             </div>
         </div>
@@ -187,7 +199,8 @@ $this->registerJsFile('/js/frontend.js', [
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>&copy; 2019 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by Alona Vereshchaka</a></p>
+                    <p>&copy; 2019 eElectronics. All Rights Reserved. Coded with <i class="fa fa-heart"></i> by Alona
+                        Vereshchaka</a></p>
                 </div>
             </div>
 
