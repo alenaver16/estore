@@ -3,6 +3,10 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Order;
+use app\models\OrderForm;
+use app\models\OrderProduct;
+use app\models\OrderProductForm;
 use app\models\Product;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -96,7 +100,7 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find(),
             'sort' => [
-                'defaultOrder' => ['id' => SORT_DESC ],
+                'defaultOrder' => ['id' => SORT_DESC],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -115,7 +119,7 @@ class SiteController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Category::find(),
             'sort' => [
-                'defaultOrder' => ['id' => SORT_DESC ],
+                'defaultOrder' => ['id' => SORT_DESC],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -133,9 +137,9 @@ class SiteController extends Controller
 
         $categoryName = Category::findOne(['id' => $id])->name;
         $dataProvider = new ActiveDataProvider([
-            'query' => Product::find()->andWhere(['category_id'=>$id]),
+            'query' => Product::find()->andWhere(['category_id' => $id]),
             'sort' => [
-                'defaultOrder' => ['id' => SORT_DESC ],
+                'defaultOrder' => ['id' => SORT_DESC],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -180,16 +184,73 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionCheckout(){
+    public function actionCheckout()
+    {
         $this->layout = 'frontend';
-        return $this->render('checkout');
+        $userId = Yii::$app->user->getId();
+        if($userId){
+            $user = User::findOne(['id' => $userId]);
+        }
+        $orderForm = new OrderForm();
+        if($user){
+            $orderForm->first_name = $user->first_name;
+            $orderForm->last_name = $user->last_name;
+            $orderForm->email = $user->email;
+            $orderForm->phone = $user->phone;
+        }
+        $orderProductForm = new OrderProductForm();
+        $formData = Yii::$app->request->post();
+        if ($formData) {
+            $orderData = $formData['OrderForm'];
+            $order = new  Order();
+            $orderProductData = $formData['OrderProductForm'];
+
+            if ($orderData && $orderProductData) {
+                $order->setAttributes($orderData);
+                $date = new \DateTime('now');
+                $order->order_date = $date->format('Y-m-d H:i:s');
+                if ($userId) $order->user_id = $userId;
+                if ($order->validate()) {
+                    if ($order->save()) {
+                        foreach ($orderProductData as $product) {
+                            $orderProduct = new OrderProduct();
+                            $orderProduct->setAttributes($product);
+                            $orderProduct->order_id = $order->id;
+                            if ($orderProduct->validate()) {
+                                $orderProduct->save();
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        $recentlyProducts = Product::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(5)->all();
+
+        $products = Product::find()
+            ->orderBy(['rand()' => SORT_DESC])
+            ->limit(4)->all();
+
+        $relatedProducts = Product::find()
+            ->orderBy(['name' => SORT_DESC])
+            ->limit(2)->all();
+        return $this->render('checkout', [
+            'orderForm' => $orderForm,
+            'orderProductForm' => $orderProductForm,
+            'recently' => $recentlyProducts,
+            'products' => $products,
+            'relatedProducts' => $relatedProducts
+        ]);
     }
 
-    public function actionSearchProduct($searchProduct){
+    public function actionSearchProduct($searchProduct)
+    {
         $dataProvider = new ActiveDataProvider([
             'query' => Product::find()->where(['like', 'name', $searchProduct]),
             'sort' => [
-                'defaultOrder' => ['name' => SORT_DESC ],
+                'defaultOrder' => ['name' => SORT_DESC],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -211,25 +272,26 @@ class SiteController extends Controller
 
         $login = new LoginForm();
         $signup = new SignUpForm();
-        if($signup->load(\Yii::$app->request->post()) && $signup->validate()){
+        if ($signup->load(\Yii::$app->request->post()) && $signup->validate()) {
             $user = new User();
             $user->setAttributes($signup->attributes);
             $user->role = 'client';
             $user->password = \Yii::$app->security->generatePasswordHash($signup->password);
             $date = new \DateTime('now');
             $user->registration_date = $date->format('Y-m-d H:i:s');
-            if($user->validate()) {
+            if ($user->validate()) {
                 if ($user->save()) {
                     return $this->goHome();
                 }
             }
         }
         if ($login->load(Yii::$app->request->post()) && $login->login()) {
-            return $this->goBack();
+            return $this->goHome();
         }
 
         return $this->render('login-signup', ['login' => $login, 'signup' => $signup]);
     }
+
     /**
      * Logout action.
      *
@@ -253,13 +315,14 @@ class SiteController extends Controller
         return $this->render('contact');
     }
 
-    public function actionSendContactEmail($name, $email, $message){
-        Yii::$app->mailer->compose('contact',  [
+    public function actionSendContactEmail($name, $email, $message)
+    {
+        Yii::$app->mailer->compose('contact', [
             'name' => $name,
             'email' => $email,
             'message' => $message
         ])
-        ->setFrom('from@domain.com')
+            ->setFrom('from@domain.com')
             ->setTo('alenavereshaka16@gmail.com')
             ->setSubject('Message subject')
             ->send();

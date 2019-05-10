@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\OrderProduct;
 use Yii;
 use app\models\Order;
 use app\models\OrderSearch;
@@ -123,5 +124,20 @@ class OrderController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function getProducts($model)
+    {
+        $res = '';
+        /**
+         * @var OrderProduct $product
+         */
+        foreach ($model->orderProducts as $product) {
+            $res .= '<p><a href="' . Yii::$app->urlManager->createUrl(['../product/view', 'id' => $product->product_id]) . '">'
+                . $product->product->name . '</a> : '
+                . $product->count . ' : '
+                . $product->price . '$</p>';
+        }
+        return $res ? $res : '<p>No products</p>';
     }
 }

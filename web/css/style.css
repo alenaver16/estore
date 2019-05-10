@@ -593,14 +593,17 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
     border: 1px solid #ddd;
     padding: 10px;
 }
-input[type="submit"], button[type=submit] {
+input[type="submit"], button[type=submit], a[type='button'] {
     background: none repeat scroll 0 0 #1abc9c;
     border: medium none;
     color: #fff;
     padding: 11px 20px;
     text-transform: uppercase;
 }
-input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
+input[type="submit"]:hover, button[type=submit], a[type='button']:hover {
+    background-color: #222;
+    text-decoration: none;
+}
 .single-sidebar input[type="text"] {
     margin-bottom: 10px;
     width: 100%;

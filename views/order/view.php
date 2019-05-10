@@ -30,10 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'count',
-            'price',
-            'product_id',
+            [
+                'label' => 'Products',
+                'value' => \Yii::$app->controller->getProducts($model),
+                'format' => 'raw'
+            ],
+            'total_price',
             'user_id',
+            'first_name',
+            'last_name',
+            'email:email',
+            'phone',
+            'country',
+            'city',
+            'address',
+            'postcode',
+            'note:ntext',
+            'shipping_method',
             'order_date',
         ],
     ]) ?>

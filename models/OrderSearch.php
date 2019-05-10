@@ -17,9 +17,9 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'count', 'product_id', 'user_id'], 'integer'],
-            [['price'], 'number'],
-            [['order_date'], 'safe'],
+            [['id', 'user_id'], 'integer'],
+            [['total_price'], 'number'],
+            [['first_name', 'last_name', 'email', 'phone', 'country', 'city', 'address', 'postcode', 'note', 'shipping_method', 'order_date'], 'safe'],
         ];
     }
 
@@ -60,12 +60,21 @@ class OrderSearch extends Order
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'count' => $this->count,
-            'price' => $this->price,
-            'product_id' => $this->product_id,
+            'total_price' => $this->total_price,
             'user_id' => $this->user_id,
             'order_date' => $this->order_date,
         ]);
+
+        $query->andFilterWhere(['like', 'first_name', $this->first_name])
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'country', $this->country])
+            ->andFilterWhere(['like', 'city', $this->city])
+            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'postcode', $this->postcode])
+            ->andFilterWhere(['like', 'note', $this->note])
+            ->andFilterWhere(['like', 'shipping_method', $this->shipping_method]);
 
         return $dataProvider;
     }

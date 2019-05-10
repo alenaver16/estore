@@ -89,8 +89,8 @@ $this->registerJsFile('/js/frontend.js', [
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i>
-                        <span class="product-count">5</span></a>
+                    <a href="cart.html">Cart - <span class="cart-amunt">$<?= Yii::$app->cart->getTotalCost() ?></span> <i class="fa fa-shopping-cart"></i>
+                        <span class="product-count"><?= Yii::$app->cart->getTotalCount() ?></span></a>
                 </div>
             </div>
         </div>

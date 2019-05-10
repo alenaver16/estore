@@ -15,7 +15,7 @@ use \yii\helpers\Html;
         <div class="wrapper">
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
-                'action' => 'login'
+                'action' => 'login-signup'
             ]); ?>
             <h3>Login</h3>
             <?= $form->field($login, 'username') ?>
@@ -32,7 +32,7 @@ use \yii\helpers\Html;
 
             <?php $form = ActiveForm::begin([
                 'id' => 'register',
-                'action' => 'signup'
+                'action' => 'login-signup'
             ]) ?>
             <h3>Register</h3>
             <?= $form->field($signup, 'username') ?>

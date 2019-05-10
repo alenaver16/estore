@@ -17,13 +17,29 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'count') ?>
-
-    <?= $form->field($model, 'price') ?>
-
-    <?= $form->field($model, 'product_id') ?>
+    <?= $form->field($model, 'total_price') ?>
 
     <?= $form->field($model, 'user_id') ?>
+
+    <?= $form->field($model, 'first_name') ?>
+
+    <?= $form->field($model, 'last_name') ?>
+
+    <?php // echo $form->field($model, 'email') ?>
+
+    <?php // echo $form->field($model, 'phone') ?>
+
+    <?php // echo $form->field($model, 'country') ?>
+
+    <?php // echo $form->field($model, 'city') ?>
+
+    <?php // echo $form->field($model, 'address') ?>
+
+    <?php // echo $form->field($model, 'postcode') ?>
+
+    <?php // echo $form->field($model, 'note') ?>
+
+    <?php // echo $form->field($model, 'shipping_method') ?>
 
     <?php // echo $form->field($model, 'order_date') ?>
 
