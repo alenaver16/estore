@@ -15,11 +15,13 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
+        "ext-json": "*",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "^2.1",
         "unclead/yii2-multiple-input": "~2.0",
-        "devanych/yii2-cart": "*"
+        "devanych/yii2-cart": "*",
+        "tigrov/yii2-kendoui": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

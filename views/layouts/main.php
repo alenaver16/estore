@@ -37,15 +37,15 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             ['label' => 'Product', 'url' => ['/product/index']],
             ['label' => 'Group', 'url' => ['/group/index']],
             ['label' => 'Category', 'url' => ['/category/index']],
             ['label' => 'Characteristic', 'url' => ['/product-characteristic/index']],
             ['label' => 'Order', 'url' => ['/order/index']],
+            ['label' => 'Reports', 'url' => ['/report/index']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/login-signup']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

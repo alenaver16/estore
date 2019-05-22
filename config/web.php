@@ -40,8 +40,8 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
-                'username' => 'alenavereshaka16@gmail.com',
-                'password' => '11031628Ver_',
+                'username' => 'alona.vereshchaka@hneu.net',
+                'password' => '11031628',
                 'port' => '587',
                 'encryption' => 'tls',
                 'streamOptions' => [ 'ssl' => [ 'allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false, ], ]

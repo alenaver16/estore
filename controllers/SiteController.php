@@ -192,7 +192,7 @@ class SiteController extends Controller
             $user = User::findOne(['id' => $userId]);
         }
         $orderForm = new OrderForm();
-        if($user){
+        if($userId && $user){
             $orderForm->first_name = $user->first_name;
             $orderForm->last_name = $user->last_name;
             $orderForm->email = $user->email;
@@ -322,9 +322,15 @@ class SiteController extends Controller
             'email' => $email,
             'message' => $message
         ])
-            ->setFrom('from@domain.com')
-            ->setTo('alenavereshaka16@gmail.com')
+            ->setFrom('alona.vereshchaka@hneu.net')
+            ->setTo('alona.vereshchaka@hneu.net')
             ->setSubject('Message subject')
             ->send();
+    }
+
+    public function actionUserProfile(){
+        if(Yii::$app->user){
+            return $this->render('user-profile', ['model' => Yii::$app->user->getIdentity()]);
+        }
     }
 }

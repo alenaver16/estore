@@ -60,7 +60,7 @@ $this->registerJsFile('/js/frontend.js', [
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/user-profile') ?>"><i class="fa fa-user"></i> My Account</a></li>
                         <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i>
                                 My Cart</a></li>
                         <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i

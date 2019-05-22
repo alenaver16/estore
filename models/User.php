@@ -15,6 +15,10 @@ use yii\db\ActiveRecord;
  * @property string $password
  * @property string $role
  * @property string $registration_date
+ * @property string $city
+ * @property string $country
+ * @property string $address
+ * @property string $postcode
  *
  * @property Order[] $orders
  */
@@ -38,9 +42,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['username', 'email', 'password'], 'required'],
-            [['username', 'first_name', 'last_name', 'email', 'password', 'registration_date'], 'safe'],
+            [['username', 'first_name', 'last_name', 'email', 'password', 'registration_date', 'city', 'country', 'address', 'postcode'], 'safe'],
             [['email'], 'email'],
-            [['username', 'first_name', 'last_name', 'email'], 'string', 'max' => 40],
+            [['username', 'first_name', 'last_name', 'email', 'city', 'country', 'address', 'postcode'], 'string', 'max' => 40],
             [['password'], 'string', 'max' => 100],
             [['phone', 'role'], 'string', 'max' => 20],
             [['username'], 'unique', 'targetClass' => User::className()],
@@ -63,6 +67,10 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             'password' => 'Password',
             'role' => 'Role',
             'registration_date' => 'Registration Date',
+            'city' => 'City',
+            'country' => 'Country',
+            'address' => 'Address',
+            'postcode' => 'Postcode'
         ];
     }
 

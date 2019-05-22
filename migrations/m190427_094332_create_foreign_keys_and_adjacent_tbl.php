@@ -53,32 +53,6 @@ class m190427_094332_create_foreign_keys_and_adjacent_tbl extends Migration
             'CASCADE',
             'CASCADE'
         );
-        $this->createTable('order', [
-            'id' => $this->primaryKey(),
-            'count' => $this->integer()->unsigned()->notNull()->defaultValue(1),
-            'price' => $this->double(2)->unsigned()->notNull(),
-            'product_id' => $this->integer()->notNull(),
-            'user_id' => $this->integer()->notNull(),
-            'order_date' => $this->dateTime()
-        ]);
-        $this->addForeignKey(
-            'product_order_fk',
-            'order',
-            'product_id',
-            'product',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
-        $this->addForeignKey(
-            'user_order_fk',
-            'order',
-            'user_id',
-            'user',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
     }
 
     /**
@@ -94,7 +68,6 @@ class m190427_094332_create_foreign_keys_and_adjacent_tbl extends Migration
             'group_fk',
             'category'
         );
-        $this->dropTable('order');
         $this->dropTable('product_characteristic');
     }
 }

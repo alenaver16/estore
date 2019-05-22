@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fc8223cb2db0abf7f04a04b3b1bfc20",
+    "content-hash": "520471b0e5a5f1392d4b526b0269e594",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -53,7 +53,7 @@
             "version": "3.3.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "9e8ec3d10fad04748176144f108d7355662ae75e"
             },
             "dist": {
@@ -663,6 +663,49 @@
                 "shim"
             ],
             "time": "2019-02-06T07:57:58+00:00"
+        },
+        {
+            "name": "tigrov/yii2-kendoui",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Tigrov/yii2-kendoui.git",
+                "reference": "10764ce7187747b306a8f00ea5014af480f44217"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Tigrov/yii2-kendoui/zipball/10764ce7187747b306a8f00ea5014af480f44217",
+                "reference": "10764ce7187747b306a8f00ea5014af480f44217",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "tigrov\\kendoui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Tigrov",
+                    "email": "rrr-r@ya.ru"
+                }
+            ],
+            "description": "Kendo UI Extension for Yii 2",
+            "keywords": [
+                "datasource",
+                "kendo",
+                "kendoui",
+                "yii2"
+            ],
+            "time": "2017-12-10T16:18:59+00:00"
         },
         {
             "name": "unclead/yii2-multiple-input",
