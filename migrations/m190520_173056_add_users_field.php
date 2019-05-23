@@ -13,9 +13,10 @@ class m190520_173056_add_users_field extends Migration
     public function safeUp()
     {
         $this->addColumn('user', 'city', $this->string(40));
-        $this->addColumn('product', 'country', $this->string(40));
-        $this->addColumn('product', 'address', $this->string(40));
-        $this->addColumn('product', 'postcode', $this->string(40));
+        $this->addColumn('user', 'country', $this->string(40));
+        $this->addColumn('user', 'address', $this->string(40));
+        $this->addColumn('user', 'postcode', $this->string(40));
+        $this->addColumn('user', 'note', $this->text());
     }
 
     /**
@@ -27,6 +28,7 @@ class m190520_173056_add_users_field extends Migration
         $this->dropColumn('user', 'country');
         $this->dropColumn('user', 'address');
         $this->dropColumn('user', 'postcode');
+        $this->dropColumn('user', 'note');
     }
 
 }

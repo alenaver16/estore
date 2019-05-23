@@ -89,7 +89,7 @@ $this->registerJsFile('/js/frontend.js', [
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart.html">Cart - <span class="cart-amunt">$<?= Yii::$app->cart->getTotalCost() ?></span> <i class="fa fa-shopping-cart"></i>
+                    <a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart - <span class="cart-amunt">$<?= Yii::$app->cart->getTotalCost() ?></span> <i class="fa fa-shopping-cart"></i>
                         <span class="product-count"><?= Yii::$app->cart->getTotalCount() ?></span></a>
                 </div>
             </div>

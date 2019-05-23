@@ -1,11 +1,7 @@
 <?php
 namespace app\controllers;
 
-
-use app\models\Order;
-use app\models\OrderProduct;
 use yii\db\Query;
-use yii\helpers\Json;
 use yii\web\Controller;
 
 /**
@@ -49,9 +45,37 @@ class ReportController extends Controller
         }
         $ordersByDate = json_encode($ordersByDateArray);
 
+
+        $ordersByCities = (new Query())
+            ->select('count(1) as value, o.city as category')
+            ->from('order o')
+            ->groupBy('o.city')
+            ->all();
+        foreach ($ordersByCities as &$item) {
+            $color = sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255));
+            $item['color'] = $color;
+        }
+        $ordersByCities = json_encode($ordersByCities);
+
+
+        $ordersByMonth = (new Query())
+            ->select('count(1) as count, month(order_date) as month')
+            ->from('order o')
+            ->groupBy('month(order_date)')
+            ->all();
+
+        $ordersByMonthArray = [];
+        foreach ($ordersByMonth as $item) {
+            $ordersByMonthArray['month'][] = date('M',strtotime($item['month']));
+            $ordersByMonthArray['count'][] = $item['count'];
+        }
+        $ordersByMonth = json_encode($ordersByMonthArray);
+
         return $this->render('index', [
             'ordersByCategory' => $ordersByCategory,
-            'ordersByDate' => $ordersByDate
+            'ordersByDate' => $ordersByDate,
+            'ordersByCities' => $ordersByCities,
+            'ordersByMonth' => $ordersByMonth
         ]);
     }
 }

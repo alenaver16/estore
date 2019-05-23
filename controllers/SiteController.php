@@ -328,9 +328,54 @@ class SiteController extends Controller
             ->send();
     }
 
-    public function actionUserProfile(){
-        if(Yii::$app->user){
-            return $this->render('user-profile', ['model' => Yii::$app->user->getIdentity()]);
+    public function actionUserProfile()
+    {
+        if (Yii::$app->user) {
+            $user = Yii::$app->user->getIdentity();
+//            $userOrders = Order::find()->select('order.*, product.name')->where(['user_id' => $user->id])->joinWith('orderProducts')->joinWith('orderProducts.product')->all();
+            $userOrders = Order::find()
+//                ->select('order.*, p.name as name')
+                ->where(['user_id' => $user->id])
+                ->join('JOIN','order_product op','op.order_id = order.id')
+                ->join('JOIN','product p','op.product_id = p.id')
+                ->all();
+            $ordersArray = [];
+
+            $productsArray = [];
+            foreach ($userOrders as $order){
+                if($order->orderProducts){
+                    foreach ($order->orderProducts as $orderProduct){
+                        if($orderProduct->product){
+                            $productsArray[] = $orderProduct->product->name;
+                        }
+                    }
+                }
+                $productsArray = implode('<br>', $productsArray);
+                $attributes = $order->attributes;
+                $attributes['products'] = $productsArray;
+                $ordersArray[] = json_encode($attributes);
+            }
+
+            $ordersArray = '[' . implode(', ',$ordersArray) . ']';
+            return $this->render('user-profile', ['model' => $user, 'orders' => $ordersArray]);
+        }
+    }
+
+    public function actionUpdateUserProfile()
+    {
+        if (Yii::$app->request->getIsAjax()) {
+            $user = Yii::$app->user->getIdentity();
+            $userData = Yii::$app->request->post('userData');
+            foreach ($userData as $item) {
+                $attribute = $item['name'];
+                    $user->$attribute = $item['value'];
+            }
+
+            $result = true;
+            if (!$user->save()) {
+                $result = false;
+            }
+            return $result;
         }
     }
 }

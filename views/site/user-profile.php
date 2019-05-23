@@ -1,31 +1,26 @@
 <?php
 /* @var $model app\models\User */
-
-use \yii\helpers\Html;
+/* @var $orders app\models\Order */
 
 ?>
-
-<!DOCTYPE html>
-<html>
 <head>
-    <title>Kendo UI &hearts; Twitter Bootstrap: Responsive demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-bootstrap.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.bootstrap.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.bootstrap.min.css" />
-<!---->
+
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.min.css"/>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.bootstrap.min.css"/>
+    <!---->
     <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.timezones.min.js"></script>
 
 
-    <script src="theme-chooser.js"></script>
+    <script src="../js/user-profile.js"></script>
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../css/user-profile.css"/>
 
     <!--[if lt IE 9]>
     <script src="vendor/html5shiv.js"></script>
@@ -33,7 +28,7 @@ use \yii\helpers\Html;
     <![endif]-->
 </head>
 <body>
-<div id="example" class="container">
+<div id="profile" class="container">
     <div class="row clearfix">
         <div class="col-lg-4">
             <section id="profile" class="well">
@@ -41,12 +36,12 @@ use \yii\helpers\Html;
 
                 <div class="row">
                     <div class="col-lg-5 col-sm-2">
-                        <img src="/images/no-userimage.png" class="ra-avatar img-responsive" />
+                        <img src="/images/no-userimage.png" class="ra-avatar img-responsive"/>
                     </div>
 
                     <div class="col-lg-7 col-sm-2">
-                        <span class="ra-first-name"><?= $model->first_name ? $model->first_name : 'Unknown'; ?></span>
-                        <span class="ra-last-name"><?= $model->last_name ? $model->last_name : 'Unknown' ?></span>
+                        <span class="ra-first-name"><?= !empty($model->first_name) ? $model->first_name : 'Unknown'; ?></span>
+                        <span class="ra-last-name"><?= !empty($model->last_name) ? $model->last_name : 'Unknown' ?></span>
                     </div>
                 </div>
             </section>
@@ -55,14 +50,21 @@ use \yii\helpers\Html;
         <div class="col-lg-8">
             <div id="tabstrip" class="ra-section">
                 <ul>
-                    <li class="k-state-active"><span class="km-icon revenue"></span><span class="hidden-xs">Revenue</span></li>
+                    <li class="k-state-active"><span class="km-icon revenue"></span><span
+                                class="hidden-xs">Revenue</span></li>
                     <li><span class="km-icon spd"></span><span class="hidden-xs">Sales / day</span></li>
                     <li><span class="km-icon spr"></span><span class="hidden-xs">Sales / region</span></li>
                     <li><span class="km-icon share"></span><span class="hidden-xs">Market share</span></li>
                 </ul>
-                <div><div id="revenue"></div></div>
-                <div><div id="sales-per-day"></div></div>
-                <div><div id="sales-per-region"></div></div>
+                <div>
+                    <div id="revenue"></div>
+                </div>
+                <div>
+                    <div id="sales-per-day"></div>
+                </div>
+                <div>
+                    <div id="sales-per-region"></div>
+                </div>
                 <div>
                     <div id="market-alice-mutton" class="market-donut"></div>
                     <div id="market-gravad-lax" class="market-donut"></div>
@@ -75,162 +77,194 @@ use \yii\helpers\Html;
 
     <section class="well">
         <h2 class="ra-well-title">Profile Setup</h2>
+        <form id="user-profile-update" onSubmit="return false;">
+            <div class="form-horizontal form-widgets col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="name">Userame</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="username"
+                               value="<?= $model->username ? $model->username : ''; ?>"/>
+                    </div>
+                </div>
 
-        <div class="form-horizontal form-widgets col-sm-6">
-            <div class="form-group">
-                <label class="control-label col-sm-4" for="name">Userame</label>
-                <div class="col-sm-8 col-md-6">
-                    <input id="name" value="<?= $model->username ? $model->username : ''; ?>" />
+                <div class="form-group">
+                    <label class="control-label col-sm-4">First Name</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="first_name"
+                               value="<?= !empty($model->first_name) ? $model->first_name : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Last Name</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="last_name"
+                               value="<?= !empty($model->last_name) ? $model->last_name : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Email</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="email" value="<?= $model->email ? $model->email : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Phone</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="phone"
+                               value="<?= !empty($model->phone) ? $model->phone : ''; ?>"/>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-4">First Name</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->first_name ? $model->first_name : ''; ?>" />
+            <div class="form-horizontal form-widgets col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Country</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="country"
+                               value="<?= !empty($model->country) ? $model->country : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">City</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="city" value="<?= !empty($model->city) ? $model->city : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Address</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="address"
+                               value="<?= !empty($model->address) ? $model->address : ''; ?>"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Postcode</label>
+                    <div class="col-sm-8 col-md-6">
+                        <input class="k-textbox" name="postcode"
+                               value="<?= !empty($model->postcode) ? $model->postcode : ''; ?>"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-horizontal form-widgets col-sm-12">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="bio">Note</label>
+                    <div class="col-sm-10">
+                        <textarea name="note" id="bio"><?= !empty($model->note) ? $model->note : ''; ?></textarea>
+                    </div>
                 </div>
             </div>
+            <div class="clearfix"></div>
 
-            <div class="form-group">
-                <label class="control-label col-sm-4">Last Name</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->last_name ? $model->last_name : ''; ?>" />
-                </div>
+            <div class="buttons-wrap">
+                <button class="k-button k-state-default js-update-user">Update</button>
             </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-4">Email</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->email ? $model->email : ''; ?>" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-4">Country</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->country ? $model->country : ''; ?>" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-horizontal form-widgets col-sm-6">
-            <div class="form-group">
-                <label class="control-label col-sm-4">City</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->city ? $model->city : ''; ?>" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-4">Address</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->address ? $model->address : ''; ?>" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-sm-4">Postcode</label>
-                <div class="col-sm-8 col-md-6">
-                    <input value="<?= $model->postcode ? $model->postcode : ''; ?>" />
-                </div>
-            </div>
-
-        </div>
-
-        <div class="clearfix"></div>
-
-
-        <div class="buttons-wrap">
-            <button class="k-button k-state-default">Cancel</button>
-            <button class="k-button k-state-default">Update</button>
-        </div>
+        </form>
     </section>
-
+    <div id="dialog">
+    </div>
+    <section class="well">
+    <h2 class="ra-well-title">All Orders</h2>
     <div id="orders" class="ra-section"></div>
-
-    <div id="schedule" class="ra-section"></div>
+    <div id="ordersDetails"></div>
+    </section>
 </div>
+</body>
 
 <script>
-    // init page controls
-    function path(url) {
-        return /(.*\/)[^\/]*$/gi.exec(url)[1];
-    }
-    $("#dimensions").kendoDropDownList({
-        dataTextField: "text",
-        dataValueField: "value",
-        value: "common-bootstrap",
-        dataSource: [
-            { text: "Default", value: "common" },
-            { text: "Bootstrap", value: "common-bootstrap" }
-        ],
-        change: function(e) {
-            window.kendoThemeChooser.changeCommon(this.value(), true);
-        }
+    $('.js-update-user').on('click', function () {
+        $.ajax({
+            type: 'POST',
+            url: '/site/update-user-profile',
+            data: {userData: $('#user-profile-update').serializeArray()},
+            success: function () {
+                $('#dialog').kendoDialog({
+                    width: "450px",
+                    title: "Success update",
+                    closable: false,
+                    modal: false,
+                    content: "<p>Your data is successfully updated.<p>",
+                    actions: [
+                        {text: 'OK', primary: true}
+                    ]
+                });
+            }
+        })
     });
+
     $("#theme").kendoDropDownList({
         dataTextField: "text",
         dataValueField: "value",
         value: "bootstrap",
         dataSource: [
-            { text: "Default", value: "default" },
-            { text: "Blue Opal", value: "blueopal" },
-            { text: "Bootstrap", value: "bootstrap" },
-            { text: "Silver", value: "silver" },
-            { text: "Uniform", value: "uniform" },
-            { text: "Metro", value: "metro" },
-            { text: "Black", value: "black" },
-            { text: "Metro Black", value: "metroblack" },
-            { text: "High Contrast", value: "highcontrast" },
-            { text: "Moonlight", value: "moonlight" },
-            { text: "Flat", value: "flat" }
+            {text: "Default", value: "default"},
+            {text: "Blue Opal", value: "blueopal"},
+            {text: "Bootstrap", value: "bootstrap"},
+            {text: "Silver", value: "silver"},
+            {text: "Uniform", value: "uniform"},
+            {text: "Metro", value: "metro"},
+            {text: "Black", value: "black"},
+            {text: "Metro Black", value: "metroblack"},
+            {text: "High Contrast", value: "highcontrast"},
+            {text: "Moonlight", value: "moonlight"},
+            {text: "Flat", value: "flat"}
         ],
-        change: function(e) {
+        change: function (e) {
             theme = this.value();
             window.kendoThemeChooser.changeTheme(theme, true);
             initCharts(theme);
         }
     });
+
     function changeFontSize(e) {
         var value = $("#font-size").kendoDropDownList("value");
         $("body").css("font-size", value + "px");
     }
+
     $("#font-size").kendoDropDownList({
         dataTextField: "text",
         dataValueField: "value",
         value: 14,
         height: 204,
         dataSource: [
-            { text: "10px", value: 10 },
-            { text: "12px", value: 12 },
-            { text: "14px", value: 14 },
-            { text: "16px", value: 16 },
-            { text: "18px", value: 18 },
-            { text: "20px", value: 20 }
+            {text: "10px", value: 10},
+            {text: "12px", value: 12},
+            {text: "14px", value: 14},
+            {text: "16px", value: 16},
+            {text: "18px", value: 18},
+            {text: "20px", value: 20}
         ],
         change: changeFontSize
     });
     changeFontSize();
     $("#theme-list, #dimensions-list, #font-size-list").addClass("ra-list");
-    $("#configure").on("click", function(e) {
+    $("#configure").on("click", function (e) {
         $("#configurator-wrap").toggleClass("hidden-xs");
         e.preventDefault();
     });
-    // init sample widgets
-    var serviceBaseUrl = "https://demos.telerik.com/kendo-ui/service";
+
     $("#menu").kendoMenu();
+
     function resizeTabStripContent() {
         kendo.resize("#tabstrip");
     }
+
     $("#tabstrip").kendoTabStrip({
         animation: {
-            open: { effects: "fadeIn" }
+            open: {effects: "fadeIn"}
         }
     });
     // resize nested charts when window resizes
     $(window).resize(resizeTabStripContent);
+
     function initCharts(theme) {
-        $(".k-tabstrip .k-content .k-chart").empty().each(function() {
+        $(".k-tabstrip .k-content .k-chart").empty().each(function () {
             $(this).removeClass(".k-chart").removeData();
         });
         $("#sales-per-day").kendoChart({
@@ -274,7 +308,7 @@ use \yii\helpers\Html;
                     [16702, 14250], [10946, 14500], [12093, 14750], [19704, 15000], [17903, 15250], [17892, 15500],
                     [16783, 15750], [9845, 16000], [22904, 16250], [8934, 16500], [12983, 16750], [22876, 17000],
                     [20981, 17250], [21873, 17500], [24981, 17750], [23873, 18000], [18376, 18000], [21783, 18000],
-                    [15672, 18000], [19456, 18000], [17998, 18000], [21673, 18000], [18234, 18000],[26932, 18000]
+                    [15672, 18000], [19456, 18000], [17998, 18000], [21673, 18000], [18234, 18000], [26932, 18000]
                 ]
             }],
             valueAxis: {
@@ -347,7 +381,7 @@ use \yii\helpers\Html;
                     6891, 1892, 14512, 4561, 2573, 9347, 7792,
                     8826, 7935, 19234, 7724, 9001, 8764, 13562,
                     15671, 18924, 10992, 3646]
-            },{
+            }, {
                 name: "Machester",
                 data: [524, 782, 891, 901, 2123, 278, 892, 872, 2003,
                     2010, 2831, 809, 1093, 2003, 3007, 5009, 4006,
@@ -357,7 +391,7 @@ use \yii\helpers\Html;
                     2654, 5842, 3556, 6233, 2613, 3452, 6772, 2553,
                     4772, 7889, 2374, 7856, 2345, 4563, 3456, 1436,
                     1123, 3445, 3456]
-            },{
+            }, {
                 name: "Rochester",
                 data: [1034, 793, 330, 1351, 988, 2713, 662, 1804, 2850,
                     1929, 1580, 1799, 3910, 4521, 3017, 3884, 12054,
@@ -436,7 +470,7 @@ use \yii\helpers\Html;
                     3765.08, 28878.88, 9076.39, 5120.27, 18600.53, 15506.08, 17563.74,
                     15790.65, 38275.66, 15370.76, 17911.99, 17440.36, 26988.38, 31185.29,
                     37658.76, 21874.08, 7255.54]
-            },{
+            }, {
                 name: "Machester",
                 data: [1199.96, 1790.78, 2040.39, 2063.29, 4861.67, 636.62, 2042.68, 1996.88,
                     4586.87, 4602.9, 6482.99, 1852.61, 2502.97, 4586.87, 6886.03, 11470.61,
@@ -446,7 +480,7 @@ use \yii\helpers\Html;
                     8003.55, 5491.42, 6077.66, 13378.18, 8143.24, 14273.57, 5983.77, 7905.08,
                     15507.88, 5846.37, 10927.88, 18065.81, 5436.46, 17990.24, 5370.05,
                     10449.27, 7914.24, 3288.44, 2571.67, 7889.05, 7914.24]
-            },{
+            }, {
                 name: "Rochester",
                 data: [1540.66, 1181.57, 491.7, 2012.99, 1472.12, 4042.37, 986.38, 2687.96, 4246.5,
                     2874.21, 2354.2, 2680.51, 5825.9, 6736.29, 4495.33, 5787.16, 17960.46,
@@ -503,15 +537,15 @@ use \yii\helpers\Html;
             },
             series: [{
                 name: "2011",
-                data: [{ category: "Canterbury", value: 30},
-                    { category: "Manchester", value: 45},
-                    { category: "Rochester", value: 25}],
+                data: [{category: "Canterbury", value: 30},
+                    {category: "Manchester", value: 45},
+                    {category: "Rochester", value: 25}],
                 padding: 0
-            },{
+            }, {
                 name: "2012",
-                data: [{ category: "Canterbury", value: 64},
-                    { category: "Manchester", value: 12},
-                    { category: "Rochester", value: 24}]
+                data: [{category: "Canterbury", value: 64},
+                    {category: "Manchester", value: 12},
+                    {category: "Rochester", value: 24}]
             }],
             tooltip: {
                 visible: true,
@@ -542,15 +576,15 @@ use \yii\helpers\Html;
             },
             series: [{
                 name: "2011",
-                data: [{ category: "Canterbury", value: 22},
-                    { category: "Manchester", value: 18},
-                    { category: "Rochester", value: 60}],
+                data: [{category: "Canterbury", value: 22},
+                    {category: "Manchester", value: 18},
+                    {category: "Rochester", value: 60}],
                 padding: 0
-            },{
+            }, {
                 name: "2012",
-                data: [{ category: "Canterbury", value: 35},
-                    { category: "Manchester", value: 20},
-                    { category: "Rochester", value: 45}]
+                data: [{category: "Canterbury", value: 35},
+                    {category: "Manchester", value: 20},
+                    {category: "Rochester", value: 45}]
             }],
             tooltip: {
                 visible: true,
@@ -581,15 +615,15 @@ use \yii\helpers\Html;
             },
             series: [{
                 name: "2011",
-                data: [{ category: "Canterbury", value: 30},
-                    { category: "Manchester", value: 21},
-                    { category: "Rochester", value: 49}],
+                data: [{category: "Canterbury", value: 30},
+                    {category: "Manchester", value: 21},
+                    {category: "Rochester", value: 49}],
                 padding: 0
-            },{
+            }, {
                 name: "2012",
-                data: [{ category: "Canterbury", value: 32},
-                    { category: "Manchester", value: 25},
-                    { category: "Rochester", value: 43}]
+                data: [{category: "Canterbury", value: 32},
+                    {category: "Manchester", value: 25},
+                    {category: "Rochester", value: 43}]
             }],
             tooltip: {
                 visible: true,
@@ -620,15 +654,15 @@ use \yii\helpers\Html;
             },
             series: [{
                 name: "2011",
-                data: [{ category: "Canterbury", value: 37},
-                    { category: "Manchester", value: 42},
-                    { category: "Rochester", value: 21}],
+                data: [{category: "Canterbury", value: 37},
+                    {category: "Manchester", value: 42},
+                    {category: "Rochester", value: 21}],
                 padding: 0
-            },{
+            }, {
                 name: "2012",
-                data: [{ category: "Canterbury", value: 32},
-                    { category: "Manchester", value: 30},
-                    { category: "Rochester", value: 38}]
+                data: [{category: "Canterbury", value: 32},
+                    {category: "Manchester", value: 30},
+                    {category: "Rochester", value: 38}]
             }],
             tooltip: {
                 visible: true,
@@ -636,32 +670,73 @@ use \yii\helpers\Html;
             }
         });
     }
+
     initCharts("bootstrap");
-    $("#orders").kendoGrid({
-        dataSource: {
-            type: "odata",
-            transport: {
-                read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Orders"
+
+    var orders = <?= $orders;?>;
+    var wnd, detailsTemplate;
+
+    $(document).ready(function () {
+        let grid = $("#orders").kendoGrid({
+            dataSource: {
+                pageSize: 10,
+                data: orders
             },
-            serverPaging: true,
-            serverSorting: true,
-            serverFiltering: true,
-            pageSize: 10
-        },
-        scrollable: false,
-        sortable: true,
-        groupable: true,
-        pageable: { buttonCount: 4 },
-        columns: [
-            { field: "OrderID", width: "70px" },
-            { field: "ShipCountry", title:"Ship Country", width: "20%" },
-            { field: "ShipAddress", title:"Ship Address" }
-        ]
+            sortable: {
+                mode: "single",
+                allowUnsort: false
+            },
+            pageable: true,
+            columns: [
+                {field: "id", hidden: true},
+                {field: "user_id", hidden: true},
+                {field: "total_price", title: "Price"},
+                {field: "products", hidden: true},
+                {field: "first_name", hidden: true},
+                {field: "last_name", hidden: true},
+                {field: "email", hidden: true},
+                {field: "phone", hidden: true},
+                {field: "country", title: "Ship Country"},
+                {field: "city", title: "Ship City"},
+                {field: "address", title: "Ship Address"},
+                {field: "postcode", title: "Postcode"},
+                {field: "note", hidden: true},
+                {field: "shipping_method", hidden: true},
+                {field: "order_date", title: "Order date", width: "20%"},
+                {
+                    command: [
+                        {text: "Details", click: showDetails}
+                    ]
+                }
+            ],
+            noRecords: true,
+            messages: {
+                noRecords: "You dont't have any orders yet."
+            }
+        }).data("kendoGrid");
+
+        wnd = $("#ordersDetails")
+            .kendoWindow({
+                title: "Order Details",
+                modal: true,
+                visible: false,
+                resizable: false,
+                width: 600
+            }).data("kendoWindow");
+
+        detailsTemplate = kendo.template($("#detailWindowTemplate").html());
     });
 
+    function showDetails(e) {
+        e.preventDefault();
+
+        let dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
 
     $("#panelbar").kendoPanelBar();
-    $("#example .form-widgets")
+    $("#profile .form-widgets")
         .find("select:not([multiple])").kendoDropDownList().end()
         .find("select[multiple]").kendoMultiSelect().end()
         .find("input:not([type])").addClass("k-textbox").end()
@@ -669,7 +744,7 @@ use \yii\helpers\Html;
         .find("input[type=number]").kendoNumericTextBox({
         format: "0 years"
     });
-    $("#example textarea").kendoEditor({
+    $("#profile textarea").kendoEditor({
         tools: [
             "formatting",
             "bold", "italic", "underline",
@@ -678,6 +753,65 @@ use \yii\helpers\Html;
             "insertUnorderedList", "insertOrderedList", "indent", "outdent"
         ]
     });
+
 </script>
-</body>
-</html>
+<script type="text/x-kendo-template" id="detailWindowTemplate">
+    <div id="details-container">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>Total Price</td>
+                <td>#= total_price #</td>
+            </tr>
+            <tr>
+                <td>All Products</td>
+                <td>#= products #</td>
+            </tr>
+            <tr>
+                <td>First name</td>
+                <td>#= first_name #</td>
+            </tr>
+            <tr>
+                <td>Last name</td>
+                <td>#= last_name #</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>#= email #</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>#= phone #</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>#= country #</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>#= city #</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>#= address #</td>
+            </tr>
+            <tr>
+                <td>Postcode</td>
+                <td>#= postcode #</td>
+            </tr>
+            <tr>
+                <td>Note</td>
+                <td>#= note #</td>
+            </tr>
+            <tr>
+                <td>Shipping method</td>
+                <td>#= shipping_method #</td>
+            </tr>
+            <tr>
+                <td>Order date</td>
+                <td>#= order_date #</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
