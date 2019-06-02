@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ProductCharacteristicSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Product Characteristics';
+$this->title = 'Характеристики товару';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-characteristic-index">

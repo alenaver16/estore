@@ -197,6 +197,11 @@ class SiteController extends Controller
             $orderForm->last_name = $user->last_name;
             $orderForm->email = $user->email;
             $orderForm->phone = $user->phone;
+            $orderForm->note = html_entity_decode($user->note);
+            $orderForm->country = $user->country;
+            $orderForm->city = $user->city;
+            $orderForm->address = $user->address;
+            $orderForm->postcode = $user->postcode;
         }
         $orderProductForm = new OrderProductForm();
         $formData = Yii::$app->request->post();
@@ -218,8 +223,10 @@ class SiteController extends Controller
                             $orderProduct->order_id = $order->id;
                             if ($orderProduct->validate()) {
                                 $orderProduct->save();
+                                $this->redirect(Yii::$app->urlManager->createUrl('../site/user-profile'));
                             }
                         }
+                        Yii::$app->cart->clear();
                     }
 
                 }
@@ -332,25 +339,27 @@ class SiteController extends Controller
     {
         if (Yii::$app->user) {
             $user = Yii::$app->user->getIdentity();
-//            $userOrders = Order::find()->select('order.*, product.name')->where(['user_id' => $user->id])->joinWith('orderProducts')->joinWith('orderProducts.product')->all();
             $userOrders = Order::find()
-//                ->select('order.*, p.name as name')
                 ->where(['user_id' => $user->id])
                 ->join('JOIN','order_product op','op.order_id = order.id')
                 ->join('JOIN','product p','op.product_id = p.id')
                 ->all();
             $ordersArray = [];
 
-            $productsArray = [];
             foreach ($userOrders as $order){
                 if($order->orderProducts){
+                    $productsArray = [];
                     foreach ($order->orderProducts as $orderProduct){
                         if($orderProduct->product){
                             $productsArray[] = $orderProduct->product->name;
                         }
                     }
                 }
-                $productsArray = implode('<br>', $productsArray);
+                if(count($productsArray) > 1) {
+                    $productsArray = implode('<br>', $productsArray);
+                } else{
+                    $productsArray = $productsArray[0];
+                }
                 $attributes = $order->attributes;
                 $attributes['products'] = $productsArray;
                 $ordersArray[] = json_encode($attributes);

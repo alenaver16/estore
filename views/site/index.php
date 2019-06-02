@@ -151,10 +151,10 @@ use yii\helpers\Html;
                                         <?php } ?>
                                         <div class="product-hover">
                                             <a href="<?= Yii::$app->urlManager->createUrl(['cart/add', 'id' => $model->id]) ?>"
-                                               class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                               class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Додати до кошику</a>
                                             <a href="<?= Yii::$app->urlManager->createUrl(['site/product', 'id' => $model->id]) ?>"
                                                class="view-details-link"><i class="fa fa-link"></i>
-                                                See details</a>
+                                                Детальніше</a>
                                         </div>
                                     </div>
                                     <h2><?= Html::a(Html::encode($model->name), Yii::$app->urlManager->createUrl(['site/product', 'id' => $model->id])); ?></h2>

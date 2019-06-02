@@ -6,26 +6,26 @@ use \yii\helpers\Html;
     <div class="veen">
         <div class="login-btn splits">
             <p>Already an user?</p>
-            <button class="active">Login</button>
+            <button class="active">Увійти</button>
         </div>
         <div class="rgstr-btn splits">
-            <p>Don't have an account?</p>
-            <button>Register</button>
+            <p>Вже маєте акаунт?</p>
+            <button>Зареєструватися</button>
         </div>
         <div class="wrapper">
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
                 'action' => 'login-signup'
             ]); ?>
-            <h3>Login</h3>
+            <h3>Увійти</h3>
             <?= $form->field($login, 'username') ?>
             <?= $form->field($login, 'password')->passwordInput() ?>
             <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'dark', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Увійти', ['class' => 'dark', 'name' => 'login-button']) ?>
             </div>
             <div class="form-group">
                 <div>
-                    <?= Html::a('Back to the shop', Yii::$app->urlManager->createUrl('site/index'), ['class' => 'dark']) ?>
+                    <?= Html::a('Повернутися до магазину', Yii::$app->urlManager->createUrl('site/index'), ['class' => 'dark']) ?>
                 </div>
             </div>
             <?php ActiveForm::end(); ?>
@@ -34,18 +34,18 @@ use \yii\helpers\Html;
                 'id' => 'register',
                 'action' => 'login-signup'
             ]) ?>
-            <h3>Register</h3>
+            <h3>Зареєструватися</h3>
             <?= $form->field($signup, 'username') ?>
             <?= $form->field($signup, 'email') ?>
             <?= $form->field($signup, 'password')->passwordInput() ?>
             <div class="form-group">
                 <div>
-                    <?= Html::submitButton('Register', ['class' => 'dark', 'name' => 'register-button']) ?>
+                    <?= Html::submitButton('Зареєструватися', ['class' => 'dark', 'name' => 'register-button']) ?>
                 </div>
             </div>
             <div class="form-group">
                 <div>
-                    <?= Html::a('Back to the shop', Yii::$app->urlManager->createUrl('site/index'), ['class' => 'dark']) ?>
+                    <?= Html::a('Повернутися до магазину', Yii::$app->urlManager->createUrl('site/index'), ['class' => 'dark']) ?>
                 </div>
             </div>
             <?php ActiveForm::end() ?>

@@ -17,7 +17,7 @@ $cartItems = $cart->getItems();
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shopping Cart</h2>
+                    <h2>Оформити замовлення</h2>
                 </div>
             </div>
         </div>
@@ -31,16 +31,16 @@ $cartItems = $cart->getItems();
         <div class="row">
             <div class="col-md-4">
                 <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
+                    <h2 class="sidebar-title">Пошук товарів</h2>
                     <form action="search-product">
-                        <input type="text" placeholder="Search products..." name="searchProduct">
+                        <input type="text" placeholder="Пошук товарів..." name="searchProduct">
                         <input type="submit" value="Search">
                     </form>
                 </div>
 
                 <?php if ($products) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Products</h2>
+                        <h2 class="sidebar-title">Товари</h2>
                         <?php /* @var $product app\models\Product */ ?>
                         <?php foreach ($products as $product) { ?>
                             <div class="thubmnail-recent">
@@ -65,7 +65,7 @@ $cartItems = $cart->getItems();
 
                 <?php if ($recently) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
+                        <h2 class="sidebar-title">Найновіші товари</h2>
                         <ul>
                             <?php /* @var $recentlyItem app\models\Product */ ?>
                             <?php foreach ($recently as $recentlyItem) { ?>
@@ -82,26 +82,20 @@ $cartItems = $cart->getItems();
             <div class="col-md-8">
                 <div class="product-content-right">
                     <div class="woocommerce">
-                        <div class="woocommerce-info">Returning customer? <a class="showlogin" data-toggle="collapse"
+                        <div class="woocommerce-info">Маєте акаунт? <a class="showlogin" data-toggle="collapse"
                                                                              href="#login-form-wrap"
                                                                              aria-expanded="false"
-                                                                             aria-controls="login-form-wrap">Click here
-                                to login</a>
+                                                                             aria-controls="login-form-wrap">Натиснуть щоб увійти</a>
                         </div>
 
                                                 <form id="login-form-wrap" class="login collapse" method="post">
-
-
-                                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you
-                                                        are a new customer please proceed to the Billing &amp; Shipping section.</p>
-
                                                     <p class="form-row form-row-first">
-                                                        <label for="username">Username or email <span class="required">*</span>
+                                                        <label for="username">Ім'я користувача чи email <span class="required">*</span>
                                                         </label>
                                                         <input type="text" id="username" name="username" class="input-text">
                                                     </p>
                                                     <p class="form-row form-row-last">
-                                                        <label for="password">Password <span class="required">*</span>
+                                                        <label for="password">Пароль <span class="required">*</span>
                                                         </label>
                                                         <input type="password" id="password" name="password" class="input-text">
                                                     </p>
@@ -112,31 +106,30 @@ $cartItems = $cart->getItems();
                                                         <input type="submit" value="Login" name="login" class="button">
                                                         <label class="inline" for="rememberme"><input type="checkbox" value="forever"
                                                                                                       id="rememberme" name="rememberme">
-                                                            Remember me </label>
+                                                            Запам'ятати мене </label>
                                                     </p>
                                                     <p class="lost_password">
-                                                        <a href="#">Lost your password?</a>
+                                                        <a href="#">Забули пароль?</a>
                                                     </p>
 
                                                     <div class="clear"></div>
                                                 </form>
 
-                        <div class="woocommerce-info">Have a coupon? <a class="showcoupon" data-toggle="collapse"
+                        <div class="woocommerce-info">Маєте промокод? <a class="showcoupon" data-toggle="collapse"
                                                                         href="#coupon-collapse-wrap"
                                                                         aria-expanded="false"
-                                                                        aria-controls="coupon-collapse-wrap">Click here
-                                to enter your code</a>
+                                                                        aria-controls="coupon-collapse-wrap">Натисніть сюди, щоб ввести промокод</a>
                         </div>
 
                         <form id="coupon-collapse-wrap" method="post" class="checkout_coupon collapse">
 
                             <p class="form-row form-row-first">
-                                <input type="text" value="" id="coupon_code" placeholder="Coupon code"
+                                <input type="text" value="" id="coupon_code" placeholder="Промокод"
                                        class="input-text" name="coupon_code">
                             </p>
 
                                                         <p class="form-row form-row-last">
-                                                            <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
+                                                            <input type="submit" value="Промокод" name="apply_coupon" class="button">
                                                         </p>
 
                             <div class="clear"></div>
@@ -147,7 +140,7 @@ $cartItems = $cart->getItems();
 
                             <div id="customer_details" class="col2-set">
                                 <div class="woocommerce-billing-fields">
-                                    <h3>Billing Details</h3>
+                                    <h3>Деталі замовлення</h3>
                                     <?php $form = ActiveForm::begin(); ?>
                                     <?= $form->field($orderForm, 'first_name'); ?>
                                     <?= $form->field($orderForm, 'last_name'); ?>
@@ -160,13 +153,12 @@ $cartItems = $cart->getItems();
                                     <?= $form->field($orderForm, 'note')->textarea(['rows' => "5"]); ?>
 
                                     <div class="create-account">
-                                        <p>Create an account by entering the information below. If you are a
-                                            returning customer please login at the top of the page.</p>
+                                        <p>Створіть обліковий запис, ввівши наведену нижче інформацію. Якщо ви вже маєте акаунт, будь ласка, увійдіть.</p>
                                         <p id="account_password_field" class="form-row validate-required">
-                                            <label class="" for="account_password">Account password <abbr
+                                            <label class="" for="account_password">Пароль <abbr
                                                         title="required" class="required">*</abbr>
                                             </label>
-                                            <input type="password" value="" placeholder="Password"
+                                            <input type="password" value="" placeholder="Пароль"
                                                    id="account_password" name="account_password" class="input-text">
                                         </p>
                                         <div class="clear"></div>
@@ -175,13 +167,13 @@ $cartItems = $cart->getItems();
                                 </div>
                             </div>
 
-                            <h3 id="order_review_heading">Your order</h3>
+                            <h3 id="order_review_heading">Ваше замовлення</h3>
                             <div id="order_review" style="position: relative;">
                                 <table class="shop_table">
                                     <thead>
                                     <tr>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-total">Total</th>
+                                        <th class="product-name">Товари</th>
+                                        <th class="product-total">Взагалі</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -195,7 +187,7 @@ $cartItems = $cart->getItems();
                                                         class="product-quantity">× <?= $cartItem->getQuantity() ?></strong>
                                             </td>
                                             <td class="product-total">
-                                                <span class="amount">$ <?= $cartItem->getPrice() ?></span></td>
+                                                <span class="amount">₴ <?= $cartItem->getPrice() ?></span></td>
 
                                         </tr>
                                     <?php } ?>
@@ -203,16 +195,16 @@ $cartItems = $cart->getItems();
                                     <tfoot>
 
                                     <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
+                                        <th>Загальна вартість товарів</th>
                                         <td><span class="amount">$<?= $cart->getTotalCost() ?></span>
                                         </td>
                                     </tr>
 
                                     <tr class="shipping">
-                                        <th>Shipping and Handling</th>
+                                        <th>Доставка</th>
                                         <td>
 
-                                            Free Shipping
+                                            Безкоштовна доставка
                                             <input type="hidden" class="shipping_method" value="free_shipping"
                                                    id="shipping_method_0" data-index="0" name="shipping_method[0]">
                                         </td>
@@ -221,7 +213,7 @@ $cartItems = $cart->getItems();
 
                                     <tr class="order-total">
                                         <?= $form->field($orderForm, 'total_price', ['template' => '{input}'])->hiddenInput(['value' => $cart->getTotalCost()]); ?>
-                                        <th>Order Total</th>
+                                        <th>Загальна вартість замовлення</th>
                                         <td><strong><span class="amount">$<?= $cart->getTotalCost() ?></span></strong>
                                         </td>
                                     </tr>
@@ -229,13 +221,31 @@ $cartItems = $cart->getItems();
                                     </tfoot>
                                 </table>
 
-                                <p>*Make your payment directly into our bank account. Please use your Order ID as the
-                                    payment reference. Your order won’t be shipped until the funds have cleared in our
-                                    account.</p>
+                                <div id="payment">
+                                    <ul class="payment_methods methods">
+                                        <li class="payment_method_bacs">
+                                            <input type="radio" data-order_button_text="" checked="checked" value="bacs" name="payment_method" class="input-radio" id="payment_method_bacs">
+                                            <label for="payment_method_bacs">Оплата за реквізитами</label>
+                                            <div class="payment_box payment_method_bacs">
+                                                <p>Зробіть платіж безпосередньо на нашому банківському рахунку. Використовуйте свій ідентифікатор замовлення як посилання на оплату. Реквізити для оплати відправлені вам на елетронну пошту. Ваше замовлення не буде відправлено, доки кошти не буде очищено в нашому обліковому записі.</p>
+                                            </div>
+                                        </li>
+                                        <li class="payment_method_paypal">
+                                            <input type="radio" data-order_button_text="Proceed to PayPal" value="paypal" name="payment_method" class="input-radio" id="payment_method_paypal">
+                                            <label for="payment_method_paypal">Приват 24<img src="../images/privat.jpg" width="100" height="70">
+                                            </label>
+                                            <div style="display:none;" class="payment_box payment_method_paypal">
+                                                <p>Розрахуйтеся за допомогою Приват 24.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
 
+                                    <div class="form-row place-order">
+                                        <input type="submit" data-value="Place order" value="Place order" id="place_order"
+                                               class="button alt">
+                                    </div>
+                                </div>
                             </div>
-                            <input type="submit" data-value="Place order" value="Place order" id="place_order"
-                                   class="button alt">
                             <?php ActiveForm::end(); ?>
                     </div>
                     </form>
@@ -243,10 +253,9 @@ $cartItems = $cart->getItems();
             </div>
         </div>
         <?php } else { ?>
-            <p class="sidebar-title">You don't have any <a
-                        href="<?= Yii::$app->urlManager->createUrl('../site/products') ?>">products</a> in your <a
-                        href="<?= Yii::$app->urlManager->createUrl('../cart/index') ?>">cart</a>.<br>Please choose some
-                product to checkout.</p>
+            <p class="sidebar-title">Ви не маєте жодного <a
+                        href="<?= Yii::$app->urlManager->createUrl('../site/products') ?>">товару</a> у вашому <a
+                        href="<?= Yii::$app->urlManager->createUrl('../cart/index') ?>">кошику</a>.<br>Будь ласка оберіть продукт для замовлення.</p>
         <?php } ?>
     </div>
 </div>

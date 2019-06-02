@@ -27,7 +27,7 @@ use \yii\helpers\Html;
             <?php } ?>
         </div>
         <div class="product-option-shop">
-            <a class="add_to_cart_button" style="cursor: pointer" data-id="<?= $model->id ?>">Add to cart</a>
+            <a class="add_to_cart_button" style="cursor: pointer" data-id="<?= $model->id ?>">Додати до кошику</a>
         </div>
     </div>
 </div>

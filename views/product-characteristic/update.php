@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\ProductCharacteristic */
 
 $this->title = 'Update Product Characteristic: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Product Characteristics', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Характеристики товару', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

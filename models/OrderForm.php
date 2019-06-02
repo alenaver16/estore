@@ -47,20 +47,20 @@ class OrderForm extends Model
     {
         return [
             'id' => 'ID',
-            'count' => 'Count',
-            'price' => 'Price',
+            'count' => 'Кількість',
+            'price' => 'Ціна',
             'product_id' => 'Product ID',
             'user_id' => 'User ID',
-            'order_date' => 'Order Date',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'order_date' => 'Дата замовлення',
+            'first_name' => 'Ім\'я',
+            'last_name' => 'Прізвище',
             'email' => 'Email',
-            'phone' => 'Phone Number',
-            'country' => 'Country',
-            'city' => 'City',
-            'address' => 'Address',
-            'postcode' => 'Postcode',
-            'note' => 'Note'
+            'phone' => 'Телефон',
+            'country' => 'Країна',
+            'city' => 'Місто',
+            'address' => 'Адреса',
+            'postcode' => 'Індех',
+            'note' => 'Примітка'
         ];
     }
 

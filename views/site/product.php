@@ -13,7 +13,7 @@ use \yii\helpers\Html;
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shop</h2>
+                    <h2>Товар</h2>
                 </div>
             </div>
         </div>
@@ -27,16 +27,16 @@ use \yii\helpers\Html;
         <div class="row">
             <div class="col-md-4">
                 <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
+                    <h2 class="sidebar-title">Пошук товарів</h2>
                     <form action="search-product">
-                        <input type="text" placeholder="Search products..." name="searchProduct">
+                        <input type="text" placeholder="Пошук товарів..." name="searchProduct">
                         <input type="submit" value="Search">
                     </form>
                 </div>
 
                 <?php if ($products) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Products</h2>
+                        <h2 class="sidebar-title">Товари</h2>
                         <?php /* @var $product app\models\Product */ ?>
                         <?php foreach ($products as $product) { ?>
                             <div class="thubmnail-recent">
@@ -61,7 +61,7 @@ use \yii\helpers\Html;
 
                 <?php if ($recently) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
+                        <h2 class="sidebar-title">Найновіші товари</h2>
                         <ul>
                             <?php /* @var $recentlyItem app\models\Product */ ?>
                             <?php foreach ($recently as $recentlyItem) { ?>
@@ -122,7 +122,7 @@ use \yii\helpers\Html;
                                                name="qty" min="1" step="1">
                                         <?= Html::hiddenInput('id', $model->id) ?>
                                     </div>
-                                    <button type="submit">Add to cart</button>
+                                    <button type="submit">Додати до кошику</button>
                                 </form>
 
                                 <div class="product-inner-category">
@@ -135,21 +135,21 @@ use \yii\helpers\Html;
                                 <div role="tabpanel">
                                     <ul class="product-tab" role="tablist">
                                         <li role="presentation" class="active"><a href="#home" aria-controls="home"
-                                                                                  role="tab" data-toggle="tab">Description</a>
+                                                                                  role="tab" data-toggle="tab">Опис</a>
                                         </li>
                                         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
-                                                                   data-toggle="tab">Reviews</a></li>
+                                                                   data-toggle="tab">Відгуки</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                            <h2>Product Characteristics</h2>
+                                            <h2>Характеристики товару</h2>
                                             <?php if ($model->productCharacteristics) { ?>
                                                 <?php /* @var $characteristic app\models\ProductCharacteristic */ ?>
                                                 <table class="table table-striped table-bordered">
                                                     <thead>
                                                     <tr>
-                                                        <th>Characteristic</th>
-                                                        <th>Description</th>
+                                                        <th>Характеристика</th>
+                                                        <th>Опис</th>
                                                     </tr>
                                                     </thead>
                                                     <?php foreach ($model->productCharacteristics as $characteristic) { ?>
@@ -194,7 +194,7 @@ use \yii\helpers\Html;
 
                     <?php if ($related) { ?>
                         <div class="related-products-wrapper">
-                            <h2 class="related-products-title">Related Products</h2>
+                            <h2 class="related-products-title">Схожі товари</h2>
                             <div class="related-products-carousel">
                                 <?php /* @var $relatedItem app\models\Product */ ?>
                                 <?php foreach ($related as $relatedItem) { ?>
@@ -212,11 +212,10 @@ use \yii\helpers\Html;
                                             <?php } ?>
                                             <div class="product-hover">
                                                 <a href="<?= Yii::$app->urlManager->createUrl(['cart/add', 'id' => $relatedItem->id]) ?>"
-                                                   class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Add to
-                                                    cart
+                                                   class="add-to-cart-link"><i class="fa fa-shopping-cart"></iДодати до кошику
                                                 </a>
                                                 <a href="<?= Yii::$app->urlManager->createUrl(['site/product', 'id' => $relatedItem->id]) ?>"
-                                                   class="view-details-link"><i class="fa fa-link"></i> See details
+                                                   class="view-details-link"><i class="fa fa-link"></i> Детальніше
                                                 </a>
                                             </div>
                                         </div>

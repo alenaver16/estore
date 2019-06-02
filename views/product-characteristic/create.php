@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\ProductCharacteristic */
 
 $this->title = 'Create Product Characteristic';
-$this->params['breadcrumbs'][] = ['label' => 'Product Characteristics', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Характеристики товару', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-characteristic-create">

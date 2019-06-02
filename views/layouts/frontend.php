@@ -60,15 +60,13 @@ $this->registerJsFile('/js/frontend.js', [
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/user-profile') ?>"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i>
-                                My Cart</a></li>
-                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i
-                                        class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/user-profile') ?>"><i class="fa fa-user"></i>Профайл</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>"><i class="fa fa-user"></i>Кошик</a></li>
+                        <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>"><i class="fa fa-user"></i>Замовлення</a></li>
                         <li>
                             <a data-method="post" href="<?= Yii::$app->user->isGuest ? Yii::$app->urlManager->createUrl('site/login-signup') :
                                 Yii::$app->urlManager->createUrl('site/logout') ?>"><i class="fa fa-user"></i>
-                                <?= Yii::$app->user->isGuest ? 'Login' : 'Logout' ?></a>
+                                <?= Yii::$app->user->isGuest ? 'Увійти' : 'Вийти' ?></a>
                         </li>
                     </ul>
                 </div>
@@ -89,7 +87,7 @@ $this->registerJsFile('/js/frontend.js', [
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart - <span class="cart-amunt">$<?= Yii::$app->cart->getTotalCost() ?></span> <i class="fa fa-shopping-cart"></i>
+                    <a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Кошик - <span class="cart-amunt">₴<?= Yii::$app->cart->getTotalCost() ?></span> <i class="fa fa-shopping-cart"></i>
                         <span class="product-count"><?= Yii::$app->cart->getTotalCount() ?></span></a>
                 </div>
             </div>
@@ -110,16 +108,16 @@ $this->registerJsFile('/js/frontend.js', [
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">Home</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Products</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/categories') ?>">Categories</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Cart</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Checkout</a></li>
-                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Contact</a></li>
+                    <li class="active"><a href="<?= Yii::$app->urlManager->createUrl('site/index') ?>">Головна</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/products') ?>">Товари</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/categories') ?>">Категорії</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('cart/index') ?>">Кошик</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/checkout') ?>">Замовлення</a></li>
+                    <li><a href="<?= Yii::$app->urlManager->createUrl('site/contact') ?>">Контакти</a></li>
                     <?= Yii::$app->user->isGuest ?
-                        '<li><a href="' . Yii::$app->urlManager->createUrl('../site/login-signup') . '">Login</a></li>'
+                        '<li><a href="' . Yii::$app->urlManager->createUrl('../site/login-signup') . '">Увійти</a></li>'
                         :
-                        '<li><a data-method="post" href="' . Yii::$app->urlManager->createUrl('../site/logout') . '">Logout (' . Yii::$app->user->identity->username . ')</a></li>'
+                        '<li><a data-method="post" href="' . Yii::$app->urlManager->createUrl('../site/logout') . '">Вийти (' . Yii::$app->user->identity->username . ')</a></li>'
                     ?>
                 </ul>
             </div>

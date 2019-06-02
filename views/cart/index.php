@@ -14,7 +14,7 @@ $cartItems = $cart->getItems();
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shopping Cart</h2>
+                    <h2>Кошик</h2>
                 </div>
             </div>
         </div>
@@ -28,16 +28,16 @@ $cartItems = $cart->getItems();
         <div class="row">
             <div class="col-md-4">
                 <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
+                    <h2 class="sidebar-title">Пошук товарів</h2>
                     <form action="search-product">
-                        <input type="text" placeholder="Search products..." name="searchProduct">
+                        <input type="text" placeholder="Пошук товарів..." name="searchProduct">
                         <input type="submit" value="Search">
                     </form>
                 </div>
 
                 <?php if ($products) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Products</h2>
+                        <h2 class="sidebar-title">Товари</h2>
                         <?php /* @var $product app\models\Product */ ?>
                         <?php foreach ($products as $product) { ?>
                             <div class="thubmnail-recent">
@@ -62,7 +62,7 @@ $cartItems = $cart->getItems();
 
                 <?php if ($recently) { ?>
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
+                        <h2 class="sidebar-title">Найновіші товари</h2>
                         <ul>
                             <?php /* @var $recentlyItem app\models\Product */ ?>
                             <?php foreach ($recently as $recentlyItem) { ?>
@@ -85,10 +85,10 @@ $cartItems = $cart->getItems();
                                     <tr>
                                         <th class="product-remove">&nbsp;</th>
                                         <th class="product-thumbnail">&nbsp;</th>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-name">Товари</th>
+                                        <th class="product-price">Ціна</th>
+                                        <th class="product-quantity">Кількість</th>
+                                        <th class="product-subtotal">Взагалі</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -112,7 +112,7 @@ $cartItems = $cart->getItems();
                                             </td>
 
                                             <td class="product-price">
-                                                <span class="amount">$<?= $item->getPrice() ?></span>
+                                                <span class="amount">₴<?= $item->getPrice() ?></span>
                                             </td>
 
                                             <td class="product-quantity">
@@ -126,22 +126,22 @@ $cartItems = $cart->getItems();
                                             </td>
 
                                             <td class="product-subtotal">
-                                                <span class="amount">$<?= $item->getCost() ?></span>
+                                                <span class="amount">₴<?= $item->getCost() ?></span>
                                             </td>
                                         </tr>
                                     <?php } ?>
                                     <tr>
                                         <td class="actions" colspan="6">
                                             <div class="coupon">
-                                                <label for="coupon_code">Coupon:</label>
-                                                <input type="text" placeholder="Coupon code" value="" id="coupon_code"
+                                                <label for="coupon_code">Прмокод:</label>
+                                                <input type="text" placeholder="Промокод" value="" id="coupon_code"
                                                        class="input-text" name="coupon_code">
-                                                <input type="submit" value="Apply Coupon" name="apply_coupon"
+                                                <input type="submit" value="Промокод" name="apply_coupon"
                                                        class="button">
                                             </div>
-                                            <input type="submit" value="Update Cart" name="update_cart" class="button">
+                                            <input type="submit" value="Оновити" name="update_cart" class="button">
                                             <a href="<?= Yii::$app->urlManager->createUrl('../site/checkout'); ?>" type="button"
-                                               class="button">Proceed to Checkout</a>
+                                               class="button">Оформити замовлення</a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -152,7 +152,7 @@ $cartItems = $cart->getItems();
 
                             <?php if ($related) { ?>
                                 <div class="cross-sells">
-                                    <h2>You may be interested in...</h2>
+                                    <h2>Вас може зацікавити ...</h2>
                                     <ul class="products">
                                         <?php foreach ($related as $relatedItem) { ?>
                                             <li class="product">
@@ -167,10 +167,10 @@ $cartItems = $cart->getItems();
                                                                  class="attachment-shop_catalog wp-post-image">
                                                     <?php } ?>
                                                     <h3><?= $relatedItem->name ?></h3>
-                                                    <span class="price"><span class="amount">$<?= $relatedItem->price ?></span></span>
+                                                    <span class="price"><span class="amount">₴<?= $relatedItem->price ?></span></span>
                                                 </a>
 
-                                                <a class="add_to_cart_button" style="cursor: pointer" data-id="<?= $relatedItem->id ?>">Add to cart</a>
+                                                <a class="add_to_cart_button" style="cursor: pointer" data-id="<?= $relatedItem->id ?>">Додати до кошику</a>
                                             </li>
                                         <?php } ?>
                                     </ul>
@@ -178,23 +178,23 @@ $cartItems = $cart->getItems();
                             <?php } ?>
 
                             <div class="cart_totals ">
-                                <h2>Cart Totals</h2>
+                                <h2>Кошик</h2>
 
                                 <table cellspacing="0">
                                     <tbody>
                                     <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
-                                        <td><span class="amount">$<?= $cart->getTotalCost() ?></span></td>
+                                        <th>Загальна вартість товарів</th>
+                                        <td><span class="amount">₴<?= $cart->getTotalCost() ?></span></td>
                                     </tr>
 
                                     <tr class="shipping">
-                                        <th>Shipping and Handling</th>
-                                        <td>Free Shipping</td>
+                                        <th>Доставка</th>
+                                        <td>Безкоштовна доставка</td>
                                     </tr>
 
                                     <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td><strong><span class="amount">$<?= $cart->getTotalCost() ?></span></strong>
+                                        <th>Загальна вартість замовлення</th>
+                                        <td><strong><span class="amount">₴<?= $cart->getTotalCost() ?></span></strong>
                                         </td>
                                     </tr>
                                     </tbody>

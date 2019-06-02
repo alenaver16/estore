@@ -711,7 +711,7 @@
             ],
             noRecords: true,
             messages: {
-                noRecords: "You dont't have any orders yet."
+                noRecords: "Ви ще не маєте жодного замовлення."
             }
         }).data("kendoGrid");
 

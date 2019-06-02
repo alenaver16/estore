@@ -59,18 +59,18 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
+            'username' => 'Ім\'я користувача',
+            'first_name' => 'Ім\'я',
+            'last_name' => 'Прізвище',
             'email' => 'Email',
-            'phone' => 'Phone',
-            'password' => 'Password',
+            'phone' => 'Телефон',
+            'password' => 'Пароль',
             'role' => 'Role',
-            'registration_date' => 'Registration Date',
-            'city' => 'City',
-            'country' => 'Country',
-            'address' => 'Address',
-            'postcode' => 'Postcode'
+            'registration_date' => 'Дата реєстрації',
+            'city' => 'Місто',
+            'country' => 'Країна',
+            'address' => 'Адреса',
+            'postcode' => 'Індекс'
         ];
     }
 
